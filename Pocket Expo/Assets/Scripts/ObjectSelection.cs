@@ -1,0 +1,91 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using TMPro;
+
+public class ObjectSelection : MonoBehaviour
+{
+    public GameObject selectedObject;
+    public TextMeshProUGUI objNameText;
+    private BuildingManager buildingManager;
+    public GameObject objUi;
+
+    void Start()
+    {
+        buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
+    }
+
+    void Update()
+    {
+        // If the pointer is over a UI element, do nothing
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        // Continue with raycasting...
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1000))
+            {
+                if (hit.collider.gameObject.CompareTag("Object"))
+                {
+                    Select(hit.collider.gameObject);
+                }
+                else
+                {
+                    Deselect(); // Clicked something else
+                }
+            }
+            else
+            {
+                Deselect(); // Clicked empty space
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Deselect();
+        }
+    }
+    
+
+    private void Select(GameObject obj)
+    {
+        if (obj == selectedObject) return;
+        if (selectedObject != null) Deselect();
+
+        Outline outline = obj.GetComponent<Outline>();
+        if (outline == null) obj.AddComponent<Outline>();
+        else outline.enabled = true;
+        objNameText.text = obj.name;
+        objUi.SetActive(true);
+        selectedObject = obj;
+    }
+
+    private void Deselect()
+    {
+        objUi.SetActive(false);
+        if (selectedObject != null && selectedObject.GetComponent<Outline>() != null)
+        {
+            selectedObject.GetComponent<Outline>().enabled = false;
+        }
+        selectedObject = null;
+    }
+
+    public void Move()
+    {
+        buildingManager.pendingObject = selectedObject;
+    }
+
+    public void Delete()
+    {
+        GameObject objToDestroy = selectedObject;
+        Deselect();
+        Destroy(objToDestroy);
+    }
+}

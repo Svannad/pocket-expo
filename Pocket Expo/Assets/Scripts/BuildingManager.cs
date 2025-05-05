@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BuildingManager : MonoBehaviour
 {
     public GameObject[] objects;
-    private GameObject pendingObject;
+    public GameObject pendingObject;
     private Vector3 pos;
     private RaycastHit hit;
     [SerializeField] private LayerMask layerMask;
