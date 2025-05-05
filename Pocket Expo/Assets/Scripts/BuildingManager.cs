@@ -10,6 +10,8 @@ public class BuildingManager : MonoBehaviour
     private Vector3 pos;
     private RaycastHit hit;
     [SerializeField] private LayerMask layerMask;
+
+    public float rotateAmount;
     public float gridSize;
     bool gridOn = true;
     [SerializeField] private Toggle gridToggle;
@@ -31,6 +33,11 @@ public class BuildingManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 PlaceObject();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RotateObject();
             }
         }
     }
@@ -54,6 +61,11 @@ public class BuildingManager : MonoBehaviour
     public void SelectingObject(int index)
     {
         pendingObject = Instantiate(objects[index], pos, transform.rotation);
+    }
+
+    public void RotateObject()
+    {
+        pendingObject.transform.Rotate(Vector3.up, rotateAmount);
     }
 
     public void GridToggle()
