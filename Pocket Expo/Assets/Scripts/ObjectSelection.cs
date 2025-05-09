@@ -18,13 +18,10 @@ public class ObjectSelection : MonoBehaviour
 
     void Update()
     {
-        // If the pointer is over a UI element, do nothing
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
-
-        // Continue with raycasting...
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,21 +35,20 @@ public class ObjectSelection : MonoBehaviour
                 }
                 else
                 {
-                    Deselect(); // Clicked something else
+                    Deselect(); 
                 }
             }
             else
             {
-                Deselect(); // Clicked empty space
+                Deselect();
             }
         }
-
         if (Input.GetMouseButtonDown(1))
         {
             Deselect();
         }
     }
-    
+
 
     private void Select(GameObject obj)
     {
