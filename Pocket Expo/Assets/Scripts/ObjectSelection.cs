@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class ObjectSelection : MonoBehaviour
 {
     public GameObject selectedObject;
-    public TextMeshProUGUI objNameText;
     private BuildingManager buildingManager;
     public GameObject objUi;
 
@@ -58,7 +56,6 @@ public class ObjectSelection : MonoBehaviour
         Outline outline = obj.GetComponent<Outline>();
         if (outline == null) obj.AddComponent<Outline>();
         else outline.enabled = true;
-        objNameText.text = obj.name;
         objUi.SetActive(true);
         selectedObject = obj;
     }
