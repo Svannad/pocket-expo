@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public GameObject[] pages; // Assign your 6 page GameObjects in the Inspector
-    private int currentOpenIndex = -1; // -1 means no page is open
+    public GameObject[] pages;
+    private int currentOpenIndex = -1;
 
     public void TogglePage(int index)
     {
