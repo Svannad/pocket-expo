@@ -14,38 +14,41 @@ public class ObjectSelection : MonoBehaviour
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
     }
 
-    void Update()
+ void Update()
+{
+    if (EventSystem.current.IsPointerOverGameObject())
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        return;
+    }
 
-            if (Physics.Raycast(ray, out hit, 1000))
+    if (Input.GetMouseButtonDown(0))
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
             {
-                if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
-                {
-                    Select(hit.collider.gameObject);
-                }
-                else
-                {
-                    Deselect(); 
-                }
+                Select(hit.collider.gameObject);
             }
             else
             {
-                Deselect();
+                Deselect(); 
             }
         }
-        if (Input.GetMouseButtonDown(1))
+        else
         {
             Deselect();
         }
     }
+
+    if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+    {
+        Deselect();
+    }
+}
+
 
 
     private void Select(GameObject obj)

@@ -24,4 +24,14 @@ public class InventoryManager : MonoBehaviour
             currentOpenIndex = index;
         }
     }
+
+    public void CloseCurrentPage()
+{
+    if (currentOpenIndex != -1)
+    {
+        pages[currentOpenIndex].SetActive(false);
+        currentOpenIndex = -1;
+    }
+}
+
 }

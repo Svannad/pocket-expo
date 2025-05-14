@@ -15,6 +15,7 @@ public class BuildingManager : MonoBehaviour
     public float minScale = 0.3f;
     public float maxScale = 3f;
     public bool canPlace;
+    public InventoryManager inventoryManager;
 
     void Update()
     {
@@ -90,20 +91,22 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-
-
-
     private void FixedUpdate()
     {
         UpdatePlacementPosition();
     }
 
 
-    public void SelectingObject(int index)
+   public void SelectingObject(int index)
+{
+    pendingObject = Instantiate(objects[index], pos, transform.rotation);
+    pendingObject.transform.localScale = Vector3.one;
+
+    if (inventoryManager != null)
     {
-        pendingObject = Instantiate(objects[index], pos, transform.rotation);
-        pendingObject.transform.localScale = Vector3.one;
+        inventoryManager.CloseCurrentPage();
     }
+}
 
     public void RotateObject()
     {
