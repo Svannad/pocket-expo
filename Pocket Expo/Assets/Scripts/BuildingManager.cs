@@ -14,7 +14,7 @@ public class BuildingManager : MonoBehaviour
     public float scaleStep = 0.1f;
     public float minScale = 0.3f;
     public float maxScale = 3f;
-
+    public bool canPlace;
 
     void Update()
     {
@@ -22,7 +22,7 @@ public class BuildingManager : MonoBehaviour
         {
             pendingObject.transform.position = pos;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && canPlace)
             {
                 PlaceObject();
             }
@@ -62,7 +62,7 @@ public class BuildingManager : MonoBehaviour
     public void SelectingObject(int index)
     {
         pendingObject = Instantiate(objects[index], pos, transform.rotation);
-        pendingObject.transform.localScale = Vector3.one; // Reset scale
+        pendingObject.transform.localScale = Vector3.one;
     }
 
     public void RotateObject()

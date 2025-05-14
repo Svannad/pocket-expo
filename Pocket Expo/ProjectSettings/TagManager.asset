@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Stackable
+  - WallOnly
+  - GroundOnly
+  - Ground
+  - Wall
   - Object
   layers:
   - Default
