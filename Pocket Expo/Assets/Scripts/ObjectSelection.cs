@@ -27,7 +27,7 @@ public class ObjectSelection : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 1000))
             {
-                if (hit.collider.gameObject.CompareTag("Object") || hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
+                if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
                 {
                     Select(hit.collider.gameObject);
                 }

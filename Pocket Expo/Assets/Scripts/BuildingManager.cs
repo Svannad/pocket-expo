@@ -49,15 +49,55 @@ public class BuildingManager : MonoBehaviour
         pendingObject = null;
     }
 
-    private void FixedUpdate()
+    private void UpdatePlacementPosition()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (pendingObject == null) return;
 
-        if (Physics.Raycast(ray, out hit, 1000, layerMask))
+        // Disable all colliders on the pending object to prevent self-hit
+        Collider[] colliders = pendingObject.GetComponentsInChildren<Collider>();
+        foreach (var col in colliders)
         {
-            pos = hit.point;
+            col.enabled = false;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if (pendingObject.CompareTag("WallOnly"))
+        {
+            if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Wall")))
+            {
+                pos = hitInfo.point;
+                pendingObject.transform.rotation = Quaternion.LookRotation(hitInfo.normal * -1f);
+            }
+        }
+        else
+        {
+            if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Ground", "Stackable")))
+            {
+                pos = hitInfo.point;
+                pendingObject.transform.rotation = Quaternion.Euler(0, pendingObject.transform.rotation.eulerAngles.y, 0);
+            }
+        }
+
+        // Set position after hit (do this *after* the raycast and not before)
+        pendingObject.transform.position = pos;
+
+        // Re-enable all colliders
+        foreach (var col in colliders)
+        {
+            col.enabled = true;
         }
     }
+
+
+
+
+    private void FixedUpdate()
+    {
+        UpdatePlacementPosition();
+    }
+
 
     public void SelectingObject(int index)
     {

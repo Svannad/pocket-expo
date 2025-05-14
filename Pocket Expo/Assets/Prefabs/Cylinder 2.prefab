@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3955304049446897349}
   m_Layer: 0
   m_Name: Cylinder 2
-  m_TagString: Object
+  m_TagString: GroundOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

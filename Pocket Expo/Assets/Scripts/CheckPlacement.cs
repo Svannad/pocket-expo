@@ -43,19 +43,21 @@ public class CheckPlacement : MonoBehaviour
     }
 
     void EvaluatePlacement()
+{
+    if (gameObject.CompareTag("GroundOnly"))
     {
-        if (gameObject.CompareTag("GroundOnly"))
-        {
-            buildingManager.canPlace = touchingGround && !touchingWall;
-        }
-        else if (gameObject.CompareTag("WallOnly"))
-        {
-            buildingManager.canPlace = touchingWall && !touchingGround;
-        }
-        else
-        {
-            // Default: allow placing if not overlapping with both or none (can customize)
-            buildingManager.canPlace = !touchingWall && !touchingGround ? false : true;
-        }
+        buildingManager.canPlace = touchingGround && !touchingWall;
     }
+    else if (gameObject.CompareTag("WallOnly"))
+    {
+        // Only needs to touch the wall
+        buildingManager.canPlace = touchingWall;
+    }
+    else
+    {
+        // Default logic
+        buildingManager.canPlace = !touchingWall && !touchingGround ? false : true;
+    }
+}
+
 }
