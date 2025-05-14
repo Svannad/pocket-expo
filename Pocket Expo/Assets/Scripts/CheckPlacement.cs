@@ -5,6 +5,10 @@ using UnityEngine;
 public class CheckPlacement : MonoBehaviour
 {
     BuildingManager buildingManager;
+
+    private bool touchingWall = false;
+    private bool touchingGround = false;
+
     void Start()
     {
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
@@ -12,16 +16,46 @@ public class CheckPlacement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.CompareTag("Wall"))
         {
-            buildingManager.canPlace = false;
+            touchingWall = true;
         }
+        else if (other.CompareTag("Ground"))
+        {
+            touchingGround = true;
+        }
+
+        EvaluatePlacement();
     }
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.CompareTag("Wall"))
         {
-            buildingManager.canPlace = true;
+            touchingWall = false;
+        }
+        else if (other.CompareTag("Ground"))
+        {
+            touchingGround = false;
+        }
+
+        EvaluatePlacement();
+    }
+
+    void EvaluatePlacement()
+    {
+        if (gameObject.CompareTag("GroundOnly"))
+        {
+            buildingManager.canPlace = touchingGround && !touchingWall;
+        }
+        else if (gameObject.CompareTag("WallOnly"))
+        {
+            buildingManager.canPlace = touchingWall && !touchingGround;
+        }
+        else
+        {
+            // Default: allow placing if not overlapping with both or none (can customize)
+            buildingManager.canPlace = !touchingWall && !touchingGround ? false : true;
         }
     }
 }
