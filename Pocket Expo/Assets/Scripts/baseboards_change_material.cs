@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class floorchange : MonoBehaviour
+public class baseboards_change_material : MonoBehaviour
 {
-    [Header("Floor Settings")]
-    public GameObject floor;  // Reference to the Cube GameObject
+    [Header("Baseboards Settings")]
+    public GameObject baseboards;  // Reference to the Cube GameObject
 
-    public Material floorNewMaterial;  // The new material for the cube
-    private Material floorOriginalMaterial;  // Store the original material of the cube
+    public Material baseboardsNewMaterial;  // The new material for the cube
+    private Material baseboardsOriginalMaterial;  // Store the original material of the cube
 
     [Header("Audio Settings")]
     public AudioClip soundEffect;  // The sound to play when the material changes
@@ -21,23 +21,23 @@ public class floorchange : MonoBehaviour
         audioSource.playOnAwake = false;  // Prevent the audio from playing automatically
 
         // Store the original material of the cube
-        if (floor != null)
+        if (baseboards != null)
         {
-            Renderer floorRenderer = floor.GetComponent<Renderer>();  // Get the floor's renderer
+            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();  // Get the baseboards' renderer
 
-            if (floorRenderer != null)
+            if (baseboardsRenderer != null)
             {
-                floorOriginalMaterial = floorRenderer.sharedMaterial;  // Save the original floor material
-                Debug.Log("Original floor material: " + floorOriginalMaterial.name);
+                baseboardsOriginalMaterial = baseboardsRenderer.sharedMaterial;  // Save the original baseboards material
+                Debug.Log("Original baseboards material: " + baseboardsOriginalMaterial.name);
             }
             else
             {
-                Debug.LogWarning("Floor Renderer not found!");
+                Debug.LogWarning("Baseboards Renderer not found!");
             }
         }
         else
         {
-            Debug.LogWarning("Floor not assigned in the inspector!");
+            Debug.LogWarning("Baseboards not assigned in the inspector!");
         }
     }
 
@@ -55,7 +55,7 @@ public class floorchange : MonoBehaviour
                 Debug.Log("Raycast hit: " + hit.transform.name);  // Log the name of the object hit by the ray
 
                 // Check if the ray hit the object this script is attached to
-                if (hit.transform == floor.transform)
+                if (hit.transform == baseboards.transform)
                 {
                     ChangeMaterials();  // Change the materials of the cube
                     PlaySound();  // Play the sound effect
@@ -70,27 +70,27 @@ public class floorchange : MonoBehaviour
         if (materialsChanged) return;
 
         // Debugging: Check if the material needs to be changed
-        if (floorNewMaterial != null && floorOriginalMaterial != floorNewMaterial)
+        if (baseboardsNewMaterial != null && baseboardsOriginalMaterial != baseboardsNewMaterial)
         {
-            Debug.Log("Floor material needs to be changed.");
+            Debug.Log("Baseboards material needs to be changed.");
         }
         else
         {
-            Debug.Log("Floor material does not need to be changed.");
+            Debug.Log("Baseboards material does not need to be changed.");
         }
 
         // Change the material of the cube
-        if (floor != null)
+        if (baseboards != null)
         {
-            Renderer floorRenderer = floor.GetComponent<Renderer>();  // Get the cube's renderer
+            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();  // Get the cube's renderer
 
-            if (floorRenderer != null && floorNewMaterial != null && floorOriginalMaterial != floorNewMaterial)
+            if (baseboardsRenderer != null && baseboardsNewMaterial != null && baseboardsOriginalMaterial != baseboardsNewMaterial)
             {
-                floorRenderer.material = floorNewMaterial;  // Set the new cube material
+                baseboardsRenderer.material = baseboardsNewMaterial;  // Set the new cube material
             }
             else
             {
-                Debug.LogWarning("Floor renderer or new material not found!");
+                Debug.LogWarning("Baseboards renderer or new material not found!");
             }
         }
 
@@ -106,3 +106,4 @@ public class floorchange : MonoBehaviour
         }
     }
 }
+

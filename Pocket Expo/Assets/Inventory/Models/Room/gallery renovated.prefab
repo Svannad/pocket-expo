@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 494584898302341044}
+  - component: {fileID: 1449556625988189570}
   m_Layer: 0
   m_Name: gallery renovated
   m_TagString: Untagged
@@ -34,6 +35,28 @@ Transform:
   - {fileID: 6320077371782968070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1449556625988189570
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067984726127382812}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2359474386371158075
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,6 +68,7 @@ GameObject:
   - component: {fileID: 4052979613529273607}
   - component: {fileID: 8533807906485666589}
   - component: {fileID: 8006205506045732436}
+  - component: {fileID: 6696297249043624352}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -120,6 +144,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6696297249043624352
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2359474386371158075}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.425, y: 0.52499986, z: 0}
+  m_Center: {x: 0.000000014901161, y: 0.00000011920929, z: 0}
 --- !u!1 &3002756033293602795
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +176,7 @@ GameObject:
   - component: {fileID: 1864948299775382750}
   - component: {fileID: 8231520780301040178}
   - component: {fileID: 1398199603772601335}
+  - component: {fileID: 5942060228489977001}
   m_Layer: 0
   m_Name: Baseboards
   m_TagString: Untagged
@@ -206,6 +252,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5942060228489977001
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3002756033293602795}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7918981, y: 2.1506965, z: 0.041397072}
+  m_Center: {x: -0.0000019073486, y: -0.0000005364418, z: 6.7762636e-21}
 --- !u!1 &3828151659554687348
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +284,7 @@ GameObject:
   - component: {fileID: 6320077371782968070}
   - component: {fileID: 6706247425571081663}
   - component: {fileID: 7288073245818911777}
+  - component: {fileID: 8977097446620851963}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -292,3 +360,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8977097446620851963
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828151659554687348}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2186430941476567602, guid: 3abd5fe7aaff5634e91714beec2e0113, type: 3}
