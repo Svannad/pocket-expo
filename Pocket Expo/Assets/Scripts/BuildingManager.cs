@@ -94,16 +94,16 @@ public class BuildingManager : MonoBehaviour
     }
 
 
-   public void SelectingObject(int index)
-{
-    pendingObject = Instantiate(objects[index], pos, transform.rotation);
-    pendingObject.transform.localScale = Vector3.one;
-
-    if (inventoryManager != null)
+    public void SelectingObject(int index)
     {
-        inventoryManager.CloseCurrentPage();
+        pendingObject = Instantiate(objects[index], pos, transform.rotation);
+        pendingObject.transform.localScale = Vector3.one;
+
+        if (inventoryManager != null)
+        {
+            inventoryManager.CloseCurrentPage();
+        }
     }
-}
 
     public void RotateObject()
     {
