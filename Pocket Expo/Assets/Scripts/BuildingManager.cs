@@ -54,7 +54,6 @@ public class BuildingManager : MonoBehaviour
     {
         if (pendingObject == null) return;
 
-        // Disable all colliders on the pending object to prevent self-hit
         Collider[] colliders = pendingObject.GetComponentsInChildren<Collider>();
         foreach (var col in colliders)
         {
@@ -81,10 +80,8 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        // Set position after hit (do this *after* the raycast and not before)
         pendingObject.transform.position = pos;
 
-        // Re-enable all colliders
         foreach (var col in colliders)
         {
             col.enabled = true;
