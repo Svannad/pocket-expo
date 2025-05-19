@@ -1,30 +1,77 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class CameraMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 100f;
+    public CameraSpotAlignment[] cameraSpotAlignments;
 
-    private Rigidbody rb;
+    private Camera mainCamera;
+    private float currentLerpTime = 0f;
+    private float lerpDuration = 1f;
+    private Vector3 startPosition;
+    private float startFOV;
+    private CameraSpot targetSpot;
+    private bool isTransitioning = false;
+    private Quaternion startRotation;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // Prevent camera from tipping over on collision
+        mainCamera = GetComponent<Camera>();
     }
 
     void Update()
     {
-        // Get input
-        float moveInput = Input.GetAxis("Vertical");
-        float rotateInput = Input.GetAxis("Horizontal");
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            TransitionToSpot(cameraSpotAlignments[0]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            TransitionToSpot(cameraSpotAlignments[1]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            TransitionToSpot(cameraSpotAlignments[2]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            TransitionToSpot(cameraSpotAlignments[3]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            TransitionToSpot(cameraSpotAlignments[4]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            TransitionToSpot(cameraSpotAlignments[5]);
+        }
+            
+        if (isTransitioning)
+        {
+            currentLerpTime += Time.deltaTime;
+            float percentComplete = currentLerpTime / lerpDuration;
 
-        // Rotate camera left/right
-        transform.Rotate(Vector3.up * rotateInput * rotationSpeed * Time.deltaTime);
+            // Use smoothstep for smoother animation
+            float smoothPercentage = percentComplete * percentComplete * (3f - 2f * percentComplete);
 
-        // Move camera forward/backward using physics
-        Vector3 moveDirection = transform.forward * moveInput * moveSpeed;
-        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+            // Interpolate position and FOV
+            transform.position = Vector3.Lerp(startPosition, targetSpot.position, smoothPercentage);
+            mainCamera.fieldOfView = Mathf.Lerp(startFOV, targetSpot.fieldOfView, smoothPercentage);
+            transform.rotation = Quaternion.Lerp(startRotation, targetSpot.rotation, smoothPercentage);
+
+            if (percentComplete >= 1f)
+            {
+                isTransitioning = false;
+            }
+        }
+    }
+
+    public void TransitionToSpot(CameraSpotAlignment spotAlignment)
+    {
+        startPosition = transform.position;
+        startFOV = mainCamera.fieldOfView;
+        startRotation = transform.rotation;
+        targetSpot = spotAlignment.GetCameraSpot();
+        currentLerpTime = 0f;
+        isTransitioning = true;
     }
 }
