@@ -11,9 +11,6 @@ public class BuildingManager : MonoBehaviour
     private RaycastHit hit;
     [SerializeField] private LayerMask layerMask;
     public float rotateAmount;
-    public float scaleStep = 0.1f;
-    public float minScale = 0.3f;
-    public float maxScale = 3f;
     public bool canPlace;
     public InventoryManager inventoryManager;
 
@@ -33,16 +30,6 @@ public class BuildingManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 RotateObject();
-            }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                ScaleObject(scaleStep);
-            }
-
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                ScaleObject(-scaleStep);
             }
         }
     }
@@ -143,12 +130,5 @@ public class BuildingManager : MonoBehaviour
     {
         currentYRotation += rotateAmount;
         currentYRotation %= 360f; // Keep within 0–360
-    }
-
-    private void ScaleObject(float amount)
-    {
-        Vector3 currentScale = pendingObject.transform.localScale;
-        float newScale = Mathf.Clamp(currentScale.x + amount, minScale, maxScale);
-        pendingObject.transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 }
