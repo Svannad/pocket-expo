@@ -13,8 +13,8 @@ public class BuildingManager : MonoBehaviour
     public float rotateAmount;
     public bool canPlace;
     public InventoryManager inventoryManager;
-
-    private float currentYRotation = 0f; // Track custom Y rotation
+    private float currentYRotation = 0f;
+    public Camera activeCamera;
 
     void Update()
     {
@@ -49,7 +49,7 @@ public class BuildingManager : MonoBehaviour
             col.enabled = false;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
         if (pendingObject.CompareTag("WallOnly"))
@@ -75,7 +75,6 @@ public class BuildingManager : MonoBehaviour
             {
                 pos = hitInfo.point;
 
-                // Maintain tracked Y rotation
                 Quaternion baseRot = pendingObject.GetComponent<OriginalPrefabInfo>().defaultRotation;
                 Quaternion finalRot = Quaternion.Euler(baseRot.eulerAngles.x, currentYRotation, baseRot.eulerAngles.z);
                 pendingObject.transform.rotation = finalRot;
@@ -129,6 +128,6 @@ public class BuildingManager : MonoBehaviour
     public void RotateObject()
     {
         currentYRotation += rotateAmount;
-        currentYRotation %= 360f; // Keep within 0–360
+        currentYRotation %= 360f; 
     }
 }

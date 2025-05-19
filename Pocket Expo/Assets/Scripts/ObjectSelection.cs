@@ -9,6 +9,8 @@ public class ObjectSelection : MonoBehaviour
     private BuildingManager buildingManager;
     public GameObject objUi;
 
+    public Camera activeCamera;
+
     void Start()
     {
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
@@ -23,7 +25,7 @@ public class ObjectSelection : MonoBehaviour
 
     if (Input.GetMouseButtonDown(0))
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 1000))
