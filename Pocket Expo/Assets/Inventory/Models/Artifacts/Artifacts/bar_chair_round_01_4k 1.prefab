@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7040890853626671001}
   - component: {fileID: 4425765985030838066}
   - component: {fileID: 2848443664355712293}
+  - component: {fileID: -5061717433139796125}
   m_Layer: 0
   m_Name: bar_chair_round_01_4k 1
   m_TagString: GroundOnly
@@ -158,3 +159,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.004831502, y: 0.0048599564, z: 0.0075054835}
   m_Center: {x: -0.00012842973, y: 0.000014092073, z: 0.0037530304}
+--- !u!114 &-5061717433139796125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359266596723599026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb47cf749f89140b788a9d4c47654e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultRotation: {x: 0, y: 0, z: 0, w: 1}

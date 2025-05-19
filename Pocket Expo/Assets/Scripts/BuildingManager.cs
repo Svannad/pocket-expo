@@ -17,6 +17,8 @@ public class BuildingManager : MonoBehaviour
     public bool canPlace;
     public InventoryManager inventoryManager;
 
+    private float currentYRotation = 0f; // Track custom Y rotation
+
     void Update()
     {
         if (pendingObject != null)
@@ -68,7 +70,16 @@ public class BuildingManager : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Wall")))
             {
                 pos = hitInfo.point;
-                pendingObject.transform.rotation = Quaternion.LookRotation(hitInfo.normal * -1f);
+
+                // Face the wall using surface normal
+                Quaternion wallFacing = Quaternion.LookRotation(hitInfo.normal * -1f);
+
+                // Use default rotation from prefab
+                Quaternion originalRot = pendingObject.GetComponent<OriginalPrefabInfo>().defaultRotation;
+                Vector3 originalEuler = originalRot.eulerAngles;
+                Quaternion finalRot = Quaternion.Euler(originalEuler.x, wallFacing.eulerAngles.y, originalEuler.z);
+
+                pendingObject.transform.rotation = finalRot;
             }
         }
         else
@@ -76,7 +87,11 @@ public class BuildingManager : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Ground", "Stackable")))
             {
                 pos = hitInfo.point;
-                pendingObject.transform.rotation = Quaternion.Euler(0, pendingObject.transform.rotation.eulerAngles.y, 0);
+
+                // Maintain tracked Y rotation
+                Quaternion baseRot = pendingObject.GetComponent<OriginalPrefabInfo>().defaultRotation;
+                Quaternion finalRot = Quaternion.Euler(baseRot.eulerAngles.x, currentYRotation, baseRot.eulerAngles.z);
+                pendingObject.transform.rotation = finalRot;
             }
         }
 
@@ -93,11 +108,30 @@ public class BuildingManager : MonoBehaviour
         UpdatePlacementPosition();
     }
 
-
     public void SelectingObject(int index)
     {
-        pendingObject = Instantiate(objects[index], pos, transform.rotation);
-        pendingObject.transform.localScale = Vector3.one;
+        GameObject selectedPrefab = objects[index];
+
+        // Try to get OriginalPrefabInfo
+        OriginalPrefabInfo info = selectedPrefab.GetComponent<OriginalPrefabInfo>();
+        Quaternion defaultRotation = selectedPrefab.transform.rotation;
+
+        if (info != null)
+        {
+            defaultRotation = info.defaultRotation;
+            Debug.Log("Using defaultRotation from script: " + defaultRotation.eulerAngles);
+        }
+        else
+        {
+            Debug.Log("Using transform.rotation: " + defaultRotation.eulerAngles);
+        }
+
+        // Instantiate
+        pendingObject = Instantiate(selectedPrefab, pos, defaultRotation);
+        pendingObject.transform.localScale = selectedPrefab.transform.localScale;
+
+        // Track the base Y rotation
+        currentYRotation = defaultRotation.eulerAngles.y;
 
         if (inventoryManager != null)
         {
@@ -107,8 +141,10 @@ public class BuildingManager : MonoBehaviour
 
     public void RotateObject()
     {
-        pendingObject.transform.Rotate(Vector3.up, rotateAmount);
+        currentYRotation += rotateAmount;
+        currentYRotation %= 360f; // Keep within 0–360
     }
+
     private void ScaleObject(float amount)
     {
         Vector3 currentScale = pendingObject.transform.localScale;
