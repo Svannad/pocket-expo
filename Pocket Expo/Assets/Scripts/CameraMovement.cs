@@ -12,10 +12,13 @@ public class CameraMovement : MonoBehaviour
     private CameraSpot targetSpot;
     private bool isTransitioning = false;
     private Quaternion startRotation;
+    private StationaryLookAround lookScript;
+
 
     void Start()
     {
         mainCamera = GetComponent<Camera>();
+        lookScript = GetComponent<StationaryLookAround>();
     }
 
     void Update()
@@ -51,7 +54,7 @@ public class CameraMovement : MonoBehaviour
             float percentComplete = currentLerpTime / lerpDuration;
 
             // Use smoothstep for smoother animation
-            float smoothPercentage = percentComplete * percentComplete * (3f - 2f * percentComplete);
+            float smoothPercentage = Mathf.SmoothStep(0f, 1f, percentComplete);
 
             // Interpolate position and FOV
             transform.position = Vector3.Lerp(startPosition, targetSpot.position, smoothPercentage);
@@ -59,6 +62,14 @@ public class CameraMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(startRotation, targetSpot.rotation, smoothPercentage);
 
             if (percentComplete >= 1f)
+            {
+    isTransitioning = false;
+
+    if (lookScript != null)
+    {
+        lookScript.SyncToCurrentTransformRotation();
+        lookScript.enabled = true; // 👈 Re-enable after move
+    }
         {
         isTransitioning = false;
 
@@ -67,7 +78,6 @@ public class CameraMovement : MonoBehaviour
         if (lookScript != null)
         {
             lookScript.SyncToCurrentTransformRotation();
-        }
         }
         else
         {
@@ -78,9 +88,11 @@ public class CameraMovement : MonoBehaviour
 
         }
         }
+        }
     }
-
-    public void TransitionToSpot(CameraSpotAlignment spotAlignment)
+        }
+    // Transition to a specific camera spot
+       public void TransitionToSpot(CameraSpotAlignment spotAlignment)
     {
         startPosition = transform.position;
         startFOV = mainCamera.fieldOfView;
@@ -88,5 +100,11 @@ public class CameraMovement : MonoBehaviour
         targetSpot = spotAlignment.GetCameraSpot();
         currentLerpTime = 0f;
         isTransitioning = true;
+
+        // 👇 Temporarily disable the look script
+        if (lookScript != null)
+            lookScript.enabled = false;
     }
-}
+
+    }
+
