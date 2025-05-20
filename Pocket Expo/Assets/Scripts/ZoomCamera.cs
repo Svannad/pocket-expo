@@ -9,7 +9,7 @@ public class ZoomCamera : MonoBehaviour
     [SerializeField]
     private float zoomSpeed;
 
-    private Camera camera;
+    private new Camera camera;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

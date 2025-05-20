@@ -711,11 +711,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &172046352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,11 +1367,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &259548022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,11 +1705,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &347462815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,11 +2835,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &619844853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,11 +4785,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &1078976507
 GameObject:
   m_ObjectHideFlags: 0
@@ -5044,6 +5044,7 @@ MonoBehaviour:
   rotateAmount: 10
   canPlace: 1
   inventoryManager: {fileID: 1494180280}
+  activeCamera: {fileID: 0}
 --- !u!4 &1141967217
 Transform:
   m_ObjectHideFlags: 0
@@ -6611,11 +6612,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1001 &1625077711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6885,11 +6886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19386d6a685b6468f8caac92a3843a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
-  pitchSpeed: 20
+  rotationSpeed: 30
+  pitchSpeed: 30
   maxPitch: 90
   minPitch: -90
-  smoothTime: 0.1
+  smoothTime: 0.2
 --- !u!1 &1736564075
 GameObject:
   m_ObjectHideFlags: 0
@@ -7421,6 +7422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedObject: {fileID: 0}
   objUi: {fileID: 252632425}
+  activeCamera: {fileID: 0}
 --- !u!4 &1863040048
 Transform:
   m_ObjectHideFlags: 0
