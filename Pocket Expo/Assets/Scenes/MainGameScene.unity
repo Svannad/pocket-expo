@@ -581,6 +581,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &153588354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +605,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -852,6 +853,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172046352}
   m_CullTransparentMesh: 1
+--- !u!1 &172125627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172125630}
+  - component: {fileID: 172125631}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172125630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172125627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25.540215, y: -33.93057, z: -23.684206}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172125631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172125627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: d730430a5f244406891db61657080d3e, type: 2}
 --- !u!1 &178046932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1259,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &256676367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1260,7 +1311,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1575,6 +1626,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &280969415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,7 +1650,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1686,13 +1738,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280969410}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50178814, y: -0.5010902, z: 0.5010848, w: 0.49601558}
+  m_LocalRotation: {x: 0.49890804, y: -0.50108963, z: 0.50108963, w: 0.49890804}
   m_LocalPosition: {x: -23.4, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -269.534, y: 314.92902, z: 45.179}
+  m_LocalEulerAnglesHint: {x: -270, y: 360, z: 90.25}
 --- !u!114 &280969419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,6 +2729,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &565943474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2700,7 +2753,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -4627,6 +4680,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &1073430453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4650,7 +4704,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -4738,13 +4792,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073430450}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50178814, y: -0.5010902, z: 0.5010848, w: 0.49601558}
-  m_LocalPosition: {x: -23.5, y: 0, z: -25}
+  m_LocalRotation: {x: 0.49890804, y: -0.50108963, z: 0.50108963, w: 0.49890804}
+  m_LocalPosition: {x: -23.4, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -269.534, y: 314.92902, z: 45.179}
+  m_LocalEulerAnglesHint: {x: -270, y: 360, z: 90.25}
 --- !u!114 &1073430457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6482,6 +6536,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &1622867432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6505,7 +6560,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -6728,6 +6783,7 @@ MonoBehaviour:
   - {fileID: 256676368}
   - {fileID: 1622867429}
   - {fileID: 153588352}
+  GlobalVolume: {fileID: 172125631}
 --- !u!114 &1661441785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6751,7 +6807,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -8408,3 +8464,4 @@ SceneRoots:
   - {fileID: 1141967217}
   - {fileID: 1885350418}
   - {fileID: 1863040048}
+  - {fileID: 172125630}
