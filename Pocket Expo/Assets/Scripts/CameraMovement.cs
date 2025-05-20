@@ -56,12 +56,27 @@ public class CameraMovement : MonoBehaviour
             // Interpolate position and FOV
             transform.position = Vector3.Lerp(startPosition, targetSpot.position, smoothPercentage);
             mainCamera.fieldOfView = Mathf.Lerp(startFOV, targetSpot.fieldOfView, smoothPercentage);
-            transform.rotation = Quaternion.Lerp(startRotation, targetSpot.rotation, smoothPercentage);
+            transform.rotation = Quaternion.Slerp(startRotation, targetSpot.rotation, smoothPercentage);
 
             if (percentComplete >= 1f)
-            {
-                isTransitioning = false;
-            }
+        {
+        isTransitioning = false;
+
+        // Sync rotation with StationaryLookAround script
+        StationaryLookAround lookScript = GetComponent<StationaryLookAround>();
+        if (lookScript != null)
+        {
+            lookScript.SyncToCurrentTransformRotation();
+        }
+        }
+        else
+        {
+            // Ensure the camera is at the target position and FOV
+            transform.position = targetSpot.position;
+            mainCamera.fieldOfView = targetSpot.fieldOfView;
+            transform.rotation = targetSpot.rotation;
+
+        }
         }
     }
 

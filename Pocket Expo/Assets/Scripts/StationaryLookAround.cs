@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class StationaryLookAround : MonoBehaviour
 {
-    public float rotationSpeed = 90f;
-    public float pitchSpeed = 60f;
+    // This script allows the camera to look around in a stationary position
+    public float rotationSpeed = 30f;
+    public float pitchSpeed = 30f;
     public float maxPitch = 90f;
     public float minPitch = -90f;
-    public float smoothTime = 0.1f;
+    public float smoothTime = 0.2f;
 
     private float targetYaw;
     private float targetPitch;
@@ -17,6 +18,7 @@ public class StationaryLookAround : MonoBehaviour
 
     private float startYaw;
     private float startPitch;
+    private float startRoll;
 
     void Start()
     {
@@ -25,6 +27,15 @@ public class StationaryLookAround : MonoBehaviour
         // Normalize angles
         startYaw = currentYaw = targetYaw = angles.y;
         startPitch = currentPitch = targetPitch = NormalizePitch(angles.x);
+        startRoll = angles.z;
+    }
+    public void SyncToCurrentTransformRotation()
+    {
+        Vector3 angles = transform.eulerAngles;
+
+        targetYaw = currentYaw = angles.y;
+        targetPitch = currentPitch = NormalizePitch(angles.x);
+        startRoll = angles.z; 
     }
 
     void Update()
@@ -48,8 +59,7 @@ public class StationaryLookAround : MonoBehaviour
         currentYaw = Mathf.SmoothDampAngle(currentYaw, targetYaw, ref yawVelocity, smoothTime);
         currentPitch = Mathf.SmoothDampAngle(currentPitch, targetPitch, ref pitchVelocity, smoothTime);
 
-        // Apply rotation
-        transform.rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+        transform.rotation = Quaternion.Euler(currentPitch, currentYaw, startRoll);
 
         // Reset to start rotation
         if (Input.GetKeyDown(KeyCode.R))
@@ -58,7 +68,6 @@ public class StationaryLookAround : MonoBehaviour
             targetPitch = startPitch;
         }
     }
-
     float NormalizePitch(float angle)
     {
         angle %= 360f;
@@ -66,4 +75,5 @@ public class StationaryLookAround : MonoBehaviour
         return Mathf.Clamp(angle, minPitch, maxPitch);
     }
 }
+
 
