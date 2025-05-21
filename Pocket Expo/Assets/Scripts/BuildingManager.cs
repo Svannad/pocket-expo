@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class BuildingManager : MonoBehaviour
 {
@@ -36,7 +38,20 @@ public class BuildingManager : MonoBehaviour
 
     public void PlaceObject()
     {
+        GameObject placed = pendingObject;
+
         pendingObject = null;
+
+        if (placed != null)
+        {
+            Vector3 originalScale = placed.transform.localScale;
+
+            placed.transform.DOScale(originalScale * 0.8f, 0.05f).SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                placed.transform.DOScale(originalScale, 0.15f).SetEase(Ease.OutBack);
+            });
+        }
+
     }
 
     private void UpdatePlacementPosition()
