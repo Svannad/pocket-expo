@@ -5044,6 +5044,7 @@ MonoBehaviour:
   rotateAmount: 10
   canPlace: 1
   inventoryManager: {fileID: 1494180280}
+  activeCamera: {fileID: 565943476}
 --- !u!4 &1141967217
 Transform:
   m_ObjectHideFlags: 0
@@ -7421,6 +7422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedObject: {fileID: 0}
   objUi: {fileID: 252632425}
+  activeCamera: {fileID: 0}
 --- !u!4 &1863040048
 Transform:
   m_ObjectHideFlags: 0
