@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb47cf749f89140b788a9d4c47654e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultRotation: {x: 0, y: 0, z: 0, w: 1}
+  defaultRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!64 &4548884878645595403
 MeshCollider:
   m_ObjectHideFlags: 0
