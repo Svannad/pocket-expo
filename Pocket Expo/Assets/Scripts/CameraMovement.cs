@@ -5,8 +5,9 @@ using UnityEngine.Rendering.Universal; // For DepthOfField in URP
 public class CameraMovement : MonoBehaviour
 {
     public CameraSpotAlignment[] cameraSpotAlignments;
-    public Volume GlobalVolume; // Drag the Volume here in Inspector
-    private DepthOfField blurEffect; // This will hold the effect reference
+    public Volume GlobalVolume;
+    public AudioSource transitionAudioSource;
+    private DepthOfField blurEffect;
     private Camera mainCamera;
     private float currentLerpTime = 0f;
     private float lerpDuration = 1f;
@@ -23,24 +24,28 @@ public class CameraMovement : MonoBehaviour
         mainCamera = GetComponent<Camera>();
         lookScript = GetComponent<StationaryLookAround>();
 
-    if (GlobalVolume != null && GlobalVolume.profile != null)
-    {
-        bool gotEffect = GlobalVolume.profile.TryGet(out blurEffect);
-        if (!gotEffect)
+        if (GlobalVolume != null && GlobalVolume.profile != null)
         {
-            Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
+            bool gotEffect = GlobalVolume.profile.TryGet(out blurEffect);
+            if (!gotEffect)
+            {
+                Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
+            }
+            else
+            {
+                blurEffect.active = false;
+                blurEffect.gaussianMaxRadius.value = 0f;
+            }
         }
         else
         {
-            blurEffect.active = false;
-            blurEffect.gaussianMaxRadius.value = 0f;
+            Debug.LogWarning("PostProcess Volume or Profile not assigned!");
+        }
+        if (transitionAudioSource == null)
+        {
+            Debug.LogWarning("AudioSource for transitions not assigned!");
         }
     }
-    else
-    {
-        Debug.LogWarning("PostProcess Volume or Profile not assigned!");
-    }
-}
 
     void Update()
     {
@@ -69,14 +74,13 @@ public class CameraMovement : MonoBehaviour
             TransitionToSpot(cameraSpotAlignments[5]);
         }
         if (Input.GetKeyDown(KeyCode.B))
-{
-    if (blurEffect != null)
-    {
-        blurEffect.active = true;
-        blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(smoothPercentage * Mathf.PI));
-        Debug.Log("Blur enabled");
-    }
-}
+        {
+            if (blurEffect != null)
+            {
+                blurEffect.active = true;
+                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(smoothPercentage * Mathf.PI));
+            }
+        }
         if (isTransitioning)
         {
             currentLerpTime += Time.deltaTime;
@@ -88,13 +92,13 @@ public class CameraMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(startRotation, targetSpot.rotation, smoothPercentage);
 
             if (blurEffect != null)
-             {
-        blurEffect.mode.value = DepthOfFieldMode.Gaussian;
-        blurEffect.gaussianStart.value = 0.5f;
-        blurEffect.gaussianEnd.value = 5f;
-        blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 60f, Mathf.Sin(smoothPercentage * Mathf.PI));
-        blurEffect.active = true;
-        Debug.Log("Blur enabled");}
+            {
+                blurEffect.mode.value = DepthOfFieldMode.Gaussian;
+                blurEffect.gaussianStart.value = 0.5f;
+                blurEffect.gaussianEnd.value = 5f;
+                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 60f, Mathf.Sin(smoothPercentage * Mathf.PI));
+                blurEffect.active = true;
+            }
 
             if (percentComplete >= 1f)
 
@@ -116,13 +120,12 @@ public class CameraMovement : MonoBehaviour
 
     // Always ensure blur is off outside transitions
     if (blurEffect != null && blurEffect.active)
-    {
-        blurEffect.active = false;
-        blurEffect.gaussianMaxRadius.value = 0f;
-    }
+                {
+                    blurEffect.active = false;
+                    blurEffect.gaussianMaxRadius.value = 0f;
+                }
                 else
                 {
-                    // Ensure the camera is at the target position and FOV
                     transform.position = targetSpot.position;
                     mainCamera.fieldOfView = targetSpot.fieldOfView;
                     transform.rotation = targetSpot.rotation;
@@ -130,7 +133,7 @@ public class CameraMovement : MonoBehaviour
             }
         }
     }
-                public void TransitionToSpot(CameraSpotAlignment spotAlignment)
+    public void TransitionToSpot(CameraSpotAlignment spotAlignment)
     {
         startPosition = transform.position;
         startFOV = mainCamera.fieldOfView;
@@ -141,5 +144,10 @@ public class CameraMovement : MonoBehaviour
 
         if (lookScript != null)
             lookScript.enabled = false; // Disable look script during transition
+
+        if (transitionAudioSource != null && transitionAudioSource.clip != null)
+        {
+            transitionAudioSource.Play();
+        }
     }
 }
