@@ -16,12 +16,12 @@ public class ObjectSelection : MonoBehaviour
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
     }
 
- void Update()
+void Update()
 {
+    if (buildingManager.pendingObject != null) return;
+
     if (EventSystem.current.IsPointerOverGameObject())
-    {
         return;
-    }
 
     if (Input.GetMouseButtonDown(0))
     {
@@ -36,7 +36,7 @@ public class ObjectSelection : MonoBehaviour
             }
             else
             {
-                Deselect(); 
+                Deselect();
             }
         }
         else
@@ -50,6 +50,7 @@ public class ObjectSelection : MonoBehaviour
         Deselect();
     }
 }
+
 
 
 

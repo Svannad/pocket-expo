@@ -62,7 +62,7 @@ public class StationaryLookAround : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentPitch, currentYaw, startRoll);
 
         // Reset to start rotation
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             targetYaw = startYaw;
             targetPitch = startPitch;
