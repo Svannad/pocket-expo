@@ -22,7 +22,7 @@ public class ZoomCamera : MonoBehaviour
     {
         float targetFOV;
 
-        if(Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.Z))
         {
             targetFOV = zoomFOV;
         }
