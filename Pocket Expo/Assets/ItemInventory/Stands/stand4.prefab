@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6707128218786323200}
   - component: {fileID: 712653082872425710}
   - component: {fileID: -5680439167949785354}
-  - component: {fileID: -1184490006833073209}
   - component: {fileID: 4487139753649823638}
   - component: {fileID: -8512055178539049681}
   - component: {fileID: -6048975550005161009}
@@ -105,18 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRotation: {x: 0, y: 0, z: 0, w: 1}
---- !u!114 &-1184490006833073209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448958723126031936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e4993c91649b4814aa1bb7b977b42e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &4487139753649823638
 MeshCollider:
   m_ObjectHideFlags: 0

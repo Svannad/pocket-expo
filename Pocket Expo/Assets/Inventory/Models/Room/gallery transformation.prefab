@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 947564659547140345}
   - component: {fileID: 2506724670844885805}
   - component: {fileID: 3286117465287138718}
+  - component: {fileID: 146293221924167162}
+  - component: {fileID: 5293769305934538312}
   m_Layer: 3
   m_Name: Floor
   m_TagString: Ground
@@ -250,6 +252,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -629719859055844128, guid: 3abd5fe7aaff5634e91714beec2e0113, type: 3}
+--- !u!65 &146293221924167162
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140575687344218323}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.42499998, y: 0.52499986, z: 4.8735608e-12}
+  m_Center: {x: 0.000000029802322, y: -1.3626643e-19, z: -0.000000059604645}
+--- !u!54 &5293769305934538312
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3140575687344218323}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6289367508857524236
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +370,8 @@ GameObject:
   - component: {fileID: 6675055010934052316}
   - component: {fileID: 376568541714779397}
   - component: {fileID: 4209765864932958619}
+  - component: {fileID: 8180422237483654114}
+  - component: {fileID: 339304039011737326}
   m_Layer: 6
   m_Name: Walls
   m_TagString: Wall
@@ -432,3 +484,51 @@ MonoBehaviour:
   walls: {fileID: 9216049945379075066}
   wallsNewMaterial: {fileID: 2100000, guid: 3e38392924eb6f847a75451cb9936308, type: 2}
   soundEffect: {fileID: 8300000, guid: ec65110332f904744a4bf068041893e5, type: 3}
+--- !u!65 &8180422237483654114
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216049945379075066}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.44999996, y: 0.53999984, z: 0.12749997}
+  m_Center: {x: 0.00000000745058, y: 0.000000014901161, z: -0.000000029802322}
+--- !u!54 &339304039011737326
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216049945379075066}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

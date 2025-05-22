@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-
 public class BuildingManager : MonoBehaviour
 {
     public GameObject[] objects;
@@ -13,10 +12,21 @@ public class BuildingManager : MonoBehaviour
     private RaycastHit hit;
     [SerializeField] private LayerMask layerMask;
     public float rotateAmount;
-    public bool canPlace;
     public InventoryManager inventoryManager;
     private float currentYRotation = 0f;
     public Camera activeCamera;
+    public AudioClip placeSound;
+    public AudioClip rotateSound;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
     void Update()
     {
@@ -24,7 +34,7 @@ public class BuildingManager : MonoBehaviour
         {
             pendingObject.transform.position = pos;
 
-            if (Input.GetMouseButtonDown(0) && canPlace)
+            if (Input.GetMouseButtonDown(0))
             {
                 PlaceObject();
             }
@@ -39,7 +49,6 @@ public class BuildingManager : MonoBehaviour
     public void PlaceObject()
     {
         GameObject placed = pendingObject;
-
         pendingObject = null;
 
         if (placed != null)
@@ -52,17 +61,23 @@ public class BuildingManager : MonoBehaviour
             });
         }
 
+        if (placeSound != null)
+        {
+            audioSource.PlayOneShot(placeSound);
+        }
     }
 
     private void UpdatePlacementPosition()
     {
         if (pendingObject == null) return;
+
         Collider[] colliders = pendingObject.GetComponentsInChildren<Collider>();
         foreach (var col in colliders) col.enabled = false;
 
         Rigidbody rb = pendingObject.GetComponent<Rigidbody>();
         bool hadRb = rb != null;
         bool originalKinematic = false;
+
         if (hadRb)
         {
             originalKinematic = rb.isKinematic;
@@ -77,7 +92,6 @@ public class BuildingManager : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Wall")))
             {
-                // Combine all child colliders to get more accurate total size
                 Collider[] allCols = pendingObject.GetComponentsInChildren<Collider>();
                 Bounds combinedBounds = new Bounds(pendingObject.transform.position, Vector3.zero);
                 foreach (var c in allCols)
@@ -85,11 +99,9 @@ public class BuildingManager : MonoBehaviour
                     combinedBounds.Encapsulate(c.bounds);
                 }
 
-                // Calculate offset based on size in the normal direction (Z-axis)
                 float offsetFromWall = Vector3.Dot(combinedBounds.extents, hitInfo.normal.normalized);
-                offsetFromWall = Mathf.Abs(offsetFromWall); // Make sure it's positive
-                if (offsetFromWall < 0.01f) offsetFromWall = 0.1f; // Safety fallback
-
+                offsetFromWall = Mathf.Abs(offsetFromWall);
+                if (offsetFromWall < 0.01f) offsetFromWall = 0.1f;
 
                 pos = hitInfo.point + hitInfo.normal * offsetFromWall;
 
@@ -114,21 +126,16 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        // Set position
         pendingObject.transform.position = pos;
 
-        // Re-enable colliders
         foreach (var col in colliders) col.enabled = true;
 
-        // Re-enable rigidbody physics if it had one
         if (hadRb)
         {
             rb.isKinematic = originalKinematic;
             rb.useGravity = !originalKinematic;
         }
     }
-
-
 
     private void FixedUpdate()
     {
@@ -139,7 +146,6 @@ public class BuildingManager : MonoBehaviour
     {
         GameObject selectedPrefab = objects[index];
 
-        // Try to get OriginalPrefabInfo
         OriginalPrefabInfo info = selectedPrefab.GetComponent<OriginalPrefabInfo>();
         Quaternion defaultRotation = selectedPrefab.transform.rotation;
 
@@ -153,11 +159,9 @@ public class BuildingManager : MonoBehaviour
             Debug.Log("Using transform.rotation: " + defaultRotation.eulerAngles);
         }
 
-        // Instantiate
         pendingObject = Instantiate(selectedPrefab, pos, defaultRotation);
         pendingObject.transform.localScale = selectedPrefab.transform.localScale;
 
-        // Track the base Y rotation
         currentYRotation = defaultRotation.eulerAngles.y;
 
         if (inventoryManager != null)
@@ -172,7 +176,11 @@ public class BuildingManager : MonoBehaviour
         {
             currentYRotation += rotateAmount;
             currentYRotation %= 360f;
+
+            if (rotateSound != null)
+            {
+                audioSource.PlayOneShot(rotateSound);
+            }
         }
     }
-
 }
