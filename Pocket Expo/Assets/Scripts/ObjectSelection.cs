@@ -2,54 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class ObjectSelection : MonoBehaviour
 {
     public GameObject selectedObject;
     private BuildingManager buildingManager;
     public GameObject objUi;
-
     public Camera activeCamera;
+    private Tween floatTween;
 
     void Start()
     {
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
     }
 
- void Update()
-{
-    if (EventSystem.current.IsPointerOverGameObject())
+    void Update()
     {
-        return;
-    }
+        if (buildingManager.pendingObject != null) return;
 
-    if (Input.GetMouseButtonDown(0))
-    {
-        Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
 
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
+            Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1000))
             {
-                Select(hit.collider.gameObject);
+                if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
+                {
+                    Select(hit.collider.gameObject);
+                }
+                else
+                {
+                    Deselect();
+                }
             }
             else
             {
-                Deselect(); 
+                Deselect();
             }
         }
-        else
+
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             Deselect();
         }
     }
 
-    if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
-    {
-        Deselect();
-    }
-}
 
 
 
@@ -82,8 +84,25 @@ public class ObjectSelection : MonoBehaviour
 
     public void Delete()
     {
+        if (selectedObject == null) return;
+
         GameObject objToDestroy = selectedObject;
         Deselect();
-        Destroy(objToDestroy);
+
+        Renderer rend = objToDestroy.GetComponentInChildren<Renderer>();
+        if (rend != null && rend.material.HasProperty("_Color"))
+        {
+            Color originalColor = rend.material.color;
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(objToDestroy.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack));
+            seq.Join(rend.material.DOFade(0f, 0.3f));
+            seq.OnComplete(() => Destroy(objToDestroy));
+        }
+        else
+        {
+            objToDestroy.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack)
+                .OnComplete(() => Destroy(objToDestroy));
+        }
     }
 }

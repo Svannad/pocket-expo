@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class BuildingManager : MonoBehaviour
 {
@@ -36,17 +38,36 @@ public class BuildingManager : MonoBehaviour
 
     public void PlaceObject()
     {
+        GameObject placed = pendingObject;
+
         pendingObject = null;
+
+        if (placed != null)
+        {
+            Vector3 originalScale = placed.transform.localScale;
+
+            placed.transform.DOScale(originalScale * 0.8f, 0.05f).SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                placed.transform.DOScale(originalScale, 0.15f).SetEase(Ease.OutBack);
+            });
+        }
+
     }
 
     private void UpdatePlacementPosition()
     {
         if (pendingObject == null) return;
-
         Collider[] colliders = pendingObject.GetComponentsInChildren<Collider>();
-        foreach (var col in colliders)
+        foreach (var col in colliders) col.enabled = false;
+
+        Rigidbody rb = pendingObject.GetComponent<Rigidbody>();
+        bool hadRb = rb != null;
+        bool originalKinematic = false;
+        if (hadRb)
         {
-            col.enabled = false;
+            originalKinematic = rb.isKinematic;
+            rb.isKinematic = true;
+            rb.useGravity = false;
         }
 
         Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
@@ -56,16 +77,28 @@ public class BuildingManager : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hitInfo, 1000f, LayerMask.GetMask("Wall")))
             {
-                pos = hitInfo.point;
+                // Combine all child colliders to get more accurate total size
+                Collider[] allCols = pendingObject.GetComponentsInChildren<Collider>();
+                Bounds combinedBounds = new Bounds(pendingObject.transform.position, Vector3.zero);
+                foreach (var c in allCols)
+                {
+                    combinedBounds.Encapsulate(c.bounds);
+                }
 
-                // Face the wall using surface normal
-                Quaternion wallFacing = Quaternion.LookRotation(hitInfo.normal * -1f);
+                // Calculate offset based on size in the normal direction (Z-axis)
+                float offsetFromWall = Vector3.Dot(combinedBounds.extents, hitInfo.normal.normalized);
+                offsetFromWall = Mathf.Abs(offsetFromWall); // Make sure it's positive
+                if (offsetFromWall < 0.01f) offsetFromWall = 0.1f; // Safety fallback
 
-                // Use default rotation from prefab
+
+                pos = hitInfo.point + hitInfo.normal * offsetFromWall;
+
+                Quaternion wallFacing = Quaternion.LookRotation(-hitInfo.normal);
                 Quaternion originalRot = pendingObject.GetComponent<OriginalPrefabInfo>().defaultRotation;
                 Vector3 originalEuler = originalRot.eulerAngles;
-                Quaternion finalRot = Quaternion.Euler(originalEuler.x, wallFacing.eulerAngles.y, originalEuler.z);
+                float combinedY = wallFacing.eulerAngles.y + originalEuler.y;
 
+                Quaternion finalRot = Quaternion.Euler(originalEuler.x, combinedY, originalEuler.z);
                 pendingObject.transform.rotation = finalRot;
             }
         }
@@ -81,13 +114,21 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
+        // Set position
         pendingObject.transform.position = pos;
 
-        foreach (var col in colliders)
+        // Re-enable colliders
+        foreach (var col in colliders) col.enabled = true;
+
+        // Re-enable rigidbody physics if it had one
+        if (hadRb)
         {
-            col.enabled = true;
+            rb.isKinematic = originalKinematic;
+            rb.useGravity = !originalKinematic;
         }
     }
+
+
 
     private void FixedUpdate()
     {
@@ -127,7 +168,11 @@ public class BuildingManager : MonoBehaviour
 
     public void RotateObject()
     {
-        currentYRotation += rotateAmount;
-        currentYRotation %= 360f; 
+        if (pendingObject != null && pendingObject.CompareTag("GroundOnly"))
+        {
+            currentYRotation += rotateAmount;
+            currentYRotation %= 360f;
+        }
     }
+
 }
