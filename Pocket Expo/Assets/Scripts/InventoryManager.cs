@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
 
     public void TogglePage(int index)
     {
+        Debug.Log("Toggling to panel: " + index);
+        
         if (currentOpenIndex == index)
         {
             // Close the currently open page

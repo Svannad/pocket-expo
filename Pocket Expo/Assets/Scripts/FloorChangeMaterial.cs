@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FloorChangeMaterial : MonoBehaviour
 {
@@ -26,7 +27,6 @@ public class FloorChangeMaterial : MonoBehaviour
             if (floorRenderer != null)
             {
                 floorOriginalMaterial = floorRenderer.material;
-                Debug.Log("Original floor material: " + floorOriginalMaterial.name);
             }
             else
             {
@@ -41,6 +41,9 @@ public class FloorChangeMaterial : MonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -48,12 +51,9 @@ public class FloorChangeMaterial : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Raycast hit: " + hit.transform.name);
-
                 if (hit.transform == floor.transform)
                 {
-                    ChangeMaterials();
-                    PlaySound();
+                    ChangeMaterials(); // Now handles the sound as well
                 }
             }
             else
@@ -83,15 +83,19 @@ public class FloorChangeMaterial : MonoBehaviour
             {
                 floorRenderer.material = floorNewMaterial;
                 Debug.Log("Floor material changed successfully.");
+
+                // Only play sound once, at the same time as changing material
+                PlaySound();
+
+                materialsChanged = true;
             }
             else
             {
                 Debug.LogWarning("Floor renderer or new material not found!");
             }
         }
-
-        materialsChanged = true;
     }
+
 
     void PlaySound()
     {

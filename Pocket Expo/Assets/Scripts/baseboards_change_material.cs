@@ -1,33 +1,32 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class baseboards_change_material : MonoBehaviour
 {
     [Header("Baseboards Settings")]
-    public GameObject baseboards;  // Reference to the Cube GameObject
-
-    public Material baseboardsNewMaterial;  // The new material for the cube
-    private Material baseboardsOriginalMaterial;  // Store the original material of the cube
+    public GameObject baseboards;  // Reference to the baseboard GameObject
+    public Material baseboardsNewMaterial;  // The new material
+    private Material baseboardsOriginalMaterial;  // Store the original material
 
     [Header("Audio Settings")]
-    public AudioClip soundEffect;  // The sound to play when the material changes
-    private AudioSource audioSource;  // AudioSource to play the sound
+    public AudioClip soundEffect;  // Sound to play when the material changes
+    private AudioSource audioSource;
 
-    private bool materialsChanged = false;  // Flag to ensure materials are only changed once
+    private bool materialsChanged = false;
 
     void Start()
     {
         // Set up the audio source
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;  // Prevent the audio from playing automatically
+        audioSource.playOnAwake = false;
 
-        // Store the original material of the cube
+        // Store the original material
         if (baseboards != null)
         {
-            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();  // Get the baseboards' renderer
-
+            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();
             if (baseboardsRenderer != null)
             {
-                baseboardsOriginalMaterial = baseboardsRenderer.sharedMaterial;  // Save the original baseboards material
+                baseboardsOriginalMaterial = baseboardsRenderer.sharedMaterial;
                 Debug.Log("Original baseboards material: " + baseboardsOriginalMaterial.name);
             }
             else
@@ -43,22 +42,19 @@ public class baseboards_change_material : MonoBehaviour
 
     void Update()
     {
-        // Check for a left-click (mouse button down)
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);  // Create a ray from the mouse position
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Cast the ray and check if it hits any colliders in the scene
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Raycast hit: " + hit.transform.name);  // Log the name of the object hit by the ray
-
-                // Check if the ray hit the object this script is attached to
                 if (hit.transform == baseboards.transform)
                 {
-                    ChangeMaterials();  // Change the materials of the cube
-                    PlaySound();  // Play the sound effect
+                    ChangeMaterials(); // Now includes sound logic
                 }
             }
         }
@@ -66,10 +62,8 @@ public class baseboards_change_material : MonoBehaviour
 
     void ChangeMaterials()
     {
-        // Prevent repeated material changes
         if (materialsChanged) return;
 
-        // Debugging: Check if the material needs to be changed
         if (baseboardsNewMaterial != null && baseboardsOriginalMaterial != baseboardsNewMaterial)
         {
             Debug.Log("Baseboards material needs to be changed.");
@@ -79,31 +73,30 @@ public class baseboards_change_material : MonoBehaviour
             Debug.Log("Baseboards material does not need to be changed.");
         }
 
-        // Change the material of the cube
         if (baseboards != null)
         {
-            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();  // Get the cube's renderer
-
+            Renderer baseboardsRenderer = baseboards.GetComponent<Renderer>();
             if (baseboardsRenderer != null && baseboardsNewMaterial != null && baseboardsOriginalMaterial != baseboardsNewMaterial)
             {
-                baseboardsRenderer.material = baseboardsNewMaterial;  // Set the new cube material
+                baseboardsRenderer.material = baseboardsNewMaterial;
+                Debug.Log("Baseboards material changed successfully.");
+
+                PlaySound(); // ✅ Only play when the material is actually changed
+
+                materialsChanged = true;
             }
             else
             {
                 Debug.LogWarning("Baseboards renderer or new material not found!");
             }
         }
-
-        materialsChanged = true;  // Set the flag to prevent repeated changes
     }
 
     void PlaySound()
     {
-        // Play the magic wave sound if it's set up
         if (soundEffect != null && audioSource != null)
         {
-            audioSource.PlayOneShot(soundEffect);  // Play the sound once
+            audioSource.PlayOneShot(soundEffect);
         }
     }
 }
-

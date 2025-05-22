@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
@@ -10,28 +9,24 @@ public class ObjectSelection : MonoBehaviour
     private BuildingManager buildingManager;
     public GameObject objUi;
     public Camera activeCamera;
-    private Tween floatTween;
 
-    void Start()
+    private void Start()
     {
         buildingManager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
     }
 
-    void Update()
+    private void Update()
     {
         if (buildingManager.pendingObject != null) return;
 
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = activeCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000))
             {
-                if (hit.collider.gameObject.CompareTag("GroundOnly") || hit.collider.gameObject.CompareTag("WallOnly"))
+                if (hit.collider.CompareTag("GroundOnly") || hit.collider.CompareTag("WallOnly"))
                 {
                     Select(hit.collider.gameObject);
                 }
@@ -52,9 +47,6 @@ public class ObjectSelection : MonoBehaviour
         }
     }
 
-
-
-
     private void Select(GameObject obj)
     {
         if (obj == selectedObject) return;
@@ -63,23 +55,42 @@ public class ObjectSelection : MonoBehaviour
         Outline outline = obj.GetComponent<Outline>();
         if (outline == null) obj.AddComponent<Outline>();
         else outline.enabled = true;
+
         objUi.SetActive(true);
         selectedObject = obj;
+
+        // Play selection sound
+        ObjectSoundFeedback sound = obj.GetComponent<ObjectSoundFeedback>();
+        if (sound != null)
+        {
+            sound.PlaySelect();
+        }
     }
 
     private void Deselect()
     {
         objUi.SetActive(false);
+
         if (selectedObject != null && selectedObject.GetComponent<Outline>() != null)
         {
             selectedObject.GetComponent<Outline>().enabled = false;
         }
+
         selectedObject = null;
     }
 
     public void Move()
     {
+        if (selectedObject == null) return;
+
         buildingManager.pendingObject = selectedObject;
+
+        // Play move sound
+        ObjectSoundFeedback sound = selectedObject.GetComponent<ObjectSoundFeedback>();
+        if (sound != null)
+        {
+            sound.PlayMove();
+        }
     }
 
     public void Delete()
@@ -89,15 +100,20 @@ public class ObjectSelection : MonoBehaviour
         GameObject objToDestroy = selectedObject;
         Deselect();
 
+        // Play delete sound
+        ObjectSoundFeedback sound = objToDestroy.GetComponent<ObjectSoundFeedback>();
+        if (sound != null)
+        {
+            sound.PlayDelete();
+        }
+
         Renderer rend = objToDestroy.GetComponentInChildren<Renderer>();
         if (rend != null && rend.material.HasProperty("_Color"))
         {
-            Color originalColor = rend.material.color;
-
-            Sequence seq = DOTween.Sequence();
-            seq.Append(objToDestroy.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack));
-            seq.Join(rend.material.DOFade(0f, 0.3f));
-            seq.OnComplete(() => Destroy(objToDestroy));
+            DOTween.Sequence()
+                .Append(objToDestroy.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack))
+                .Join(rend.material.DOFade(0f, 0.3f))
+                .OnComplete(() => Destroy(objToDestroy));
         }
         else
         {
