@@ -79,3 +79,6 @@ public class ButtonHoverClickEffect : MonoBehaviour, IPointerEnterHandler, IPoin
         targetScale = isPointerOver ? originalScale * hoverScale : originalScale;
     }
 }
+
+
+
