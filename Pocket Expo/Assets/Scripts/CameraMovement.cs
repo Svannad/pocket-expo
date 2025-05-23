@@ -18,6 +18,8 @@ public class CameraMovement : MonoBehaviour
     private Quaternion startRotation;
     private StationaryLookAround lookScript;
     private float smoothPercentage;
+    public InventoryManager inventoryManager;
+    private int currentCameraIndex = 0;
 
     void Start()
     {
@@ -52,26 +54,32 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             TransitionToSpot(cameraSpotAlignments[0]);
+            UpdateInventoryVisibility(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             TransitionToSpot(cameraSpotAlignments[1]);
+            UpdateInventoryVisibility(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             TransitionToSpot(cameraSpotAlignments[2]);
+            UpdateInventoryVisibility(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             TransitionToSpot(cameraSpotAlignments[3]);
+            UpdateInventoryVisibility(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             TransitionToSpot(cameraSpotAlignments[4]);
+            UpdateInventoryVisibility(4);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             TransitionToSpot(cameraSpotAlignments[5]);
+            UpdateInventoryVisibility(5);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -148,6 +156,16 @@ public class CameraMovement : MonoBehaviour
         if (transitionAudioSource != null && transitionAudioSource.clip != null)
         {
             transitionAudioSource.Play();
+        }
+    }
+    void UpdateInventoryVisibility(int cameraIndex)
+    {
+        currentCameraIndex = cameraIndex;
+        if (inventoryManager != null)
+        {
+            // Show inventory only on positions 1-5, hide on 0
+            bool shouldShow = cameraIndex >= 1 && cameraIndex <= 5;
+            inventoryManager.SetInventoryVisibility(shouldShow);
         }
     }
 }
