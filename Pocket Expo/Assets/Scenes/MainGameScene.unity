@@ -2858,9 +2858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4993c91649b4814aa1bb7b977b42e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingManager: {fileID: 0}
-  touchingWall: 0
-  touchingGround: 0
 --- !u!1 &408873421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,9 +7211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4993c91649b4814aa1bb7b977b42e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingManager: {fileID: 0}
-  touchingWall: 0
-  touchingGround: 0
 --- !u!64 &1152112087
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11345,7 +11339,6 @@ GameObject:
   - component: {fileID: 1997136404}
   - component: {fileID: 1997136403}
   - component: {fileID: 1997136402}
-  - component: {fileID: 1997136405}
   m_Layer: 5
   m_Name: ItemThree
   m_TagString: Untagged
@@ -11528,7 +11521,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cf5711835705c413bb93a14b2c1e75c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f94cfbe0975d4b11b4628f85657ec08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11547,13 +11540,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000781509}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7044762, y: 0.04273321, z: 0.04357848, w: 0.7070985}
-  m_LocalPosition: {x: -19.1, y: -36.3, z: -14}
-  m_LocalScale: {x: 114, y: 240, z: 27}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -23.5, y: -38.2, z: -30}
+  m_LocalScale: {x: 25.517563, y: 55.213448, z: 2.3535664}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -89.78, y: -14.367, z: 21.365}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &2005847087
 GameObject:
   m_ObjectHideFlags: 0
@@ -12402,3 +12395,5 @@ SceneRoots:
   - {fileID: 1863040048}
   - {fileID: 172125630}
   - {fileID: 2000781511}
+  - {fileID: 1169808024}
+  - {fileID: 1269854524}
