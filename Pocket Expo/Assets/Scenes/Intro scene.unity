@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 1837536387}
   - component: {fileID: 1837536386}
   - component: {fileID: 1837536385}
+  - component: {fileID: 1837536390}
   m_Layer: 0
   m_Name: video
   m_TagString: Untagged
@@ -405,7 +406,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837536384}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: e7f70aada897d4af6aa8280aa3de6e3d, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 4f78cbe3417ab4f80933f42c1b5d1637, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 950749650}
@@ -416,21 +417,23 @@ VideoPlayer:
   m_RenderMode: 1
   m_AspectRatio: 2
   m_DataSource: 0
-  m_TimeUpdateMode: 2
+  m_TimeUpdateMode: 1
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
   m_TargetAudioSources:
   - {fileID: 0}
+  - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
+  - 1
   m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
+  m_EnabledAudioTracks: 0100
+  m_DirectAudioMutes: 0000
+  m_ControlledAudioTrackCount: 2
   m_PlayOnAwake: 1
   m_SkipOnDrop: 0
   m_Looping: 0
-  m_WaitForFirstFrame: 0
+  m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!64 &1837536386
@@ -450,7 +453,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -523,6 +526,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1837536390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837536384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628c9ca71b2e74de9b22a9bf53f8026e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoPlayer: {fileID: 1837536385}
+  nextSceneName: Start Scene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
