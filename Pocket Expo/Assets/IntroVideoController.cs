@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Video; // <-- Import this for Unity's VideoPlayer
+using UnityEngine.Video; // For VideoPlayer
 
 public class IntroVideoController : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
-    public string nextSceneName = "MainMenu";
+    public string nextSceneName = "Start Scene"; // Set this to your actual scene name
 
     void Start()
     {
@@ -14,6 +14,18 @@ public class IntroVideoController : MonoBehaviour
     }
 
     void OnVideoFinished(VideoPlayer vp)
+    {
+        LoadNextScene();
+    }
+
+    // 📺 Call this from the Skip Button's OnClick
+    public void SkipVideo()
+    {
+        videoPlayer.Stop(); // Optional: stop the video if needed
+        LoadNextScene();
+    }
+
+    void LoadNextScene()
     {
         SceneManager.LoadScene(nextSceneName);
     }
