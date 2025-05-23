@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 1180715843}
   - component: {fileID: 1180715842}
   - component: {fileID: 1180715844}
+  - component: {fileID: 1180715845}
   m_Layer: 5
   m_Name: skip button
   m_TagString: Untagged
@@ -370,7 +371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 260.3661, y: -156.35925}
+  m_AnchoredPosition: {x: 315, y: -190}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180715842
@@ -464,6 +465,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &1180715845
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180715840}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1285040421
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +940,11 @@ MonoBehaviour:
   videoPlayer: {fileID: 1837536385}
   nextSceneName: Start Scene
   fadeImage: {fileID: 1791176350}
-  fadeDuration: 1
+  fadeDuration: 1.5
+  skipButton: {fileID: 1180715844}
+  skipButtonDelay: 5
+  skipButtonFadeDuration: 1
+  skipSlideDistance: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
