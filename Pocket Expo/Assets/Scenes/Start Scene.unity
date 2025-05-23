@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 974016036}
   - component: {fileID: 974016035}
   - component: {fileID: 974016033}
+  - component: {fileID: 974016037}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -521,6 +522,23 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &974016037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974016031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54574c322286dd64dba8c081fb9148f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  pressedScale: 0.95
+  scaleSpeed: 8
+  hoverSound: {fileID: 8300000, guid: 7e2129d237a56f7478ba732888457f8f, type: 3}
+  clickSound: {fileID: 8300000, guid: 79124effd0cd98d48b96a2a369c74ae4, type: 3}
 --- !u!1 &1152019852
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +804,7 @@ GameObject:
   - component: {fileID: 1563405849}
   - component: {fileID: 1563405848}
   - component: {fileID: 1563405846}
+  - component: {fileID: 1563405850}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -903,6 +922,23 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1563405850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563405844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54574c322286dd64dba8c081fb9148f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  pressedScale: 0.95
+  scaleSpeed: 8
+  hoverSound: {fileID: 8300000, guid: 7e2129d237a56f7478ba732888457f8f, type: 3}
+  clickSound: {fileID: 8300000, guid: 79124effd0cd98d48b96a2a369c74ae4, type: 3}
 --- !u!1 &1690906208
 GameObject:
   m_ObjectHideFlags: 0
