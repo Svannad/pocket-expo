@@ -2855,9 +2855,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 387357794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e4993c91649b4814aa1bb7b977b42e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 003aa31f1269fe14a8504d8b17730c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floor: {fileID: 0}
+  floorNewMaterial: {fileID: 0}
+  soundEffect: {fileID: 0}
 --- !u!1 &408873421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7221,9 +7224,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1152112073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e4993c91649b4814aa1bb7b977b42e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 078373e7b0ee6ad46b88c2fb7b1d50c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walls: {fileID: 0}
+  wallsNewMaterial: {fileID: 0}
+  soundEffect: {fileID: 0}
 --- !u!64 &1152112087
 MeshCollider:
   m_ObjectHideFlags: 0
