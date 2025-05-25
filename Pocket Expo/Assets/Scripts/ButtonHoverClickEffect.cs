@@ -10,6 +10,7 @@ public class ButtonHoverClickEffect : MonoBehaviour, IPointerEnterHandler, IPoin
     public float scaleSpeed = 8f;
 
     [Header("Sound Effects")]
+    public AudioClip hoverSound;
     public AudioClip clickSound;
 
     private Vector3 originalScale;
@@ -31,7 +32,10 @@ public class ButtonHoverClickEffect : MonoBehaviour, IPointerEnterHandler, IPoin
             audioSource.playOnAwake = false;
         }
 
-        // Load default click sound if not manually assigned
+        // Load default sounds from Resources if not manually assigned
+        if (hoverSound == null)
+            hoverSound = Resources.Load<AudioClip>("Hover over a button");
+
         if (clickSound == null)
             clickSound = Resources.Load<AudioClip>("Button click");
     }
@@ -46,6 +50,9 @@ public class ButtonHoverClickEffect : MonoBehaviour, IPointerEnterHandler, IPoin
         isPointerOver = true;
         if (!isPressed)
             targetScale = originalScale * hoverScale;
+
+        if (hoverSound)
+            audioSource.PlayOneShot(hoverSound);
     }
 
     public void OnPointerExit(PointerEventData eventData)
