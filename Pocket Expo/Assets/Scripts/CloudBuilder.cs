@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CloudBuilder : MonoBehaviour
 {
-    public string spritePath = "cloud"; // Correct for Assets/Resources/cloud.png
+    public string spritePath = "cloud1"; 
     public string cloudLayerName = "Clouds";
 
     [HideInInspector] public GameObject cloudPrefab;
