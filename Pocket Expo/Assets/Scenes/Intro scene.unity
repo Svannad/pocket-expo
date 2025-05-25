@@ -372,7 +372,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 256.6, y: -142.4}
-  m_SizeDelta: {x: 120, y: 50}
+  m_SizeDelta: {x: 110, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180715842
 MonoBehaviour:
@@ -431,12 +431,12 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9150943, g: 0.71341866, b: 0.28920433, a: 1}
+    m_HighlightedColor: {r: 0.8962264, g: 0.6984444, b: 0.5453453, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.2
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -940,11 +940,11 @@ MonoBehaviour:
   videoPlayer: {fileID: 1837536385}
   nextSceneName: Start Scene
   fadeImage: {fileID: 1791176350}
-  fadeDuration: 1.5
+  fadeDuration: 2
   skipButton: {fileID: 1180715844}
-  skipButtonDelay: 5
+  skipButtonDelay: 10
   skipButtonFadeDuration: 1
-  skipSlideDistance: 100
+  skipSlideDistance: 50
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

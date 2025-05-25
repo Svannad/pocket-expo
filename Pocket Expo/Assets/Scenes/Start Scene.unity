@@ -240,7 +240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306, y: -335}
+  m_AnchoredPosition: {x: 229, y: -325}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &183827586
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -515,8 +515,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 533, y: -82}
-  m_SizeDelta: {x: 140, y: 25}
+  m_AnchoredPosition: {x: 500, y: -121}
+  m_SizeDelta: {x: 120, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &974016033
 MonoBehaviour:
@@ -624,7 +624,6 @@ MonoBehaviour:
   hoverScale: 1.1
   pressedScale: 0.95
   scaleSpeed: 8
-  hoverSound: {fileID: 8300000, guid: 7e2129d237a56f7478ba732888457f8f, type: 3}
   clickSound: {fileID: 8300000, guid: 79124effd0cd98d48b96a2a369c74ae4, type: 3}
 --- !u!1 &1152019852
 GameObject:
@@ -731,7 +730,7 @@ Transform:
   m_GameObject: {fileID: 1169246402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -944.36, y: -527.91, z: 0}
+  m_LocalPosition: {x: -944.8, y: -527.8, z: 0}
   m_LocalScale: {x: 4.440618, y: 4.440618, z: 4.440618}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -828,8 +827,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 534, y: 53.7}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 500, y: 11}
+  m_SizeDelta: {x: 150, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1563405846
 MonoBehaviour:
@@ -937,7 +936,6 @@ MonoBehaviour:
   hoverScale: 1.1
   pressedScale: 0.95
   scaleSpeed: 8
-  hoverSound: {fileID: 8300000, guid: 7e2129d237a56f7478ba732888457f8f, type: 3}
   clickSound: {fileID: 8300000, guid: 79124effd0cd98d48b96a2a369c74ae4, type: 3}
 --- !u!1 &1690906208
 GameObject:
