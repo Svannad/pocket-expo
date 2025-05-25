@@ -877,7 +877,7 @@ MonoBehaviour:
   builder: {fileID: 1164885066}
   cloudCount: 5
   spawnCenter: {x: -9, y: 6, z: 10}
-  spawnRange: {x: 3, y: 3, z: 3}
+  spawnRange: {x: 6, y: 4, z: 5}
 --- !u!114 &1164885066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8402ff88534a140fb8e904a5af14cebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeRange: {x: 8, y: 8}
+  sizeRange: {x: 6, y: 10}
   driftSpeedRange: {x: 80, y: 80}
   fadeDuration: 3
 --- !u!23 &1164885069
