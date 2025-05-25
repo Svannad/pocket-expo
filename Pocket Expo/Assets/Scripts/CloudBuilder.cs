@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CloudBuilder : MonoBehaviour
 {
-    public string spritePath = "cloud1"; 
+    public string spritePath = "cloud"; 
     public string cloudLayerName = "Clouds";
 
     [HideInInspector] public GameObject cloudPrefab;
@@ -40,7 +40,7 @@ public class CloudBuilder : MonoBehaviour
         quad.GetComponent<MeshRenderer>().material = mat;
 
         // Scale up the cloud so it's visible
-        quad.transform.localScale = new Vector3(5f, 3f, 1f); // Width x Height
+        quad.transform.localScale = new Vector3(3f, 2f, 0.5f); // Width x Height
 
         // Remove collider
         DestroyImmediate(quad.GetComponent<Collider>());
