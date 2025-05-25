@@ -4,8 +4,8 @@ public class CloudSpawner : MonoBehaviour
 {
     public CloudBuilder builder;
     public int cloudCount = 5;
-    public Vector3 spawnCenter = new Vector3(0, 5, 10);  // Position in front of camera
-    public Vector3 spawnRange = new Vector3(5, 2, 1);     // Random offset range
+    public Vector3 spawnCenter = new Vector3(0, 5, 10);
+    public Vector3 spawnRange = new Vector3(5, 2, 1);
 
     void Start()
     {
@@ -25,8 +25,12 @@ public class CloudSpawner : MonoBehaviour
 
             GameObject cloud = Instantiate(builder.cloudPrefab, spawnCenter + offset, Quaternion.identity);
             cloud.SetActive(true);
-            cloud.transform.localScale *= Random.Range(0.8f, 1.3f);
+
+            // Add CloudBehavior script to control size, drifting, and fade-in
+            cloud.AddComponent<CloudBehavior>();
+
+            Debug.Log($"Spawned cloud at {cloud.transform.position}");
         }
     }
 }
-// This script spawns multiple cloud prefabs at random positions around a specified center point in front of the camera.
+// This script spawns a specified number of clouds at random positions within a defined range around a center point.

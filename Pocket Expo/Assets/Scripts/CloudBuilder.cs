@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class CloudBuilder : MonoBehaviour
 {
-    public string spritePath = "cloud"; // Inside Resources folder
+    public string spritePath = "cloud"; // Correct for Assets/Resources/cloud.png
     public string cloudLayerName = "Clouds";
 
     [HideInInspector] public GameObject cloudPrefab;
-    
 
     void Awake()
     {
@@ -14,7 +13,7 @@ public class CloudBuilder : MonoBehaviour
         int cloudLayer = LayerMask.NameToLayer(cloudLayerName);
         if (cloudLayer == -1)
         {
-            Debug.LogError($"Layer '{cloudLayerName}' not found. Please add it manually under 'Edit > Project Settings > Tags and Layers'.");
+            Debug.LogError($"Layer '{cloudLayerName}' not found. Please add it under Edit > Project Settings > Tags and Layers.");
             return;
         }
 
@@ -25,6 +24,7 @@ public class CloudBuilder : MonoBehaviour
             Debug.LogError($"Could not load sprite at Resources/{spritePath}");
             return;
         }
+        Debug.Log($"Sprite '{sprite.name}' loaded successfully.");
 
         // Extract texture
         Texture2D texture = sprite.texture;
@@ -39,17 +39,23 @@ public class CloudBuilder : MonoBehaviour
         quad.layer = cloudLayer;
         quad.GetComponent<MeshRenderer>().material = mat;
 
-        // Remove unnecessary collider
+        // Scale up the cloud so it's visible
+        quad.transform.localScale = new Vector3(5f, 3f, 1f); // Width x Height
+
+        // Remove collider
         DestroyImmediate(quad.GetComponent<Collider>());
 
-        // Add billboard behavior
+        // Add billboard script
         quad.AddComponent<Billboard>();
 
         // Store as prefab in memory
         cloudPrefab = quad;
 
-        // Hide the original quad
+        // Hide original prefab
         quad.SetActive(false);
+
+        Debug.Log("Cloud prefab created and stored.");
     }
 }
-// This script creates a cloud prefab with a transparent material and billboard behavior.
+// This script builds a cloud prefab from a sprite and prepares it for instantiation in the scene.
+// It creates a quad with a transparent material, applies the sprite texture, and adds a billboard effect.
