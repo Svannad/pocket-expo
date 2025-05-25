@@ -744,6 +744,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 153588359}
+  inventoryManager: {fileID: 0}
 --- !u!114 &153588354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1597,6 +1598,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 256676375}
+  inventoryManager: {fileID: 0}
 --- !u!114 &256676367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2063,6 +2065,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 280969420}
+  inventoryManager: {fileID: 0}
 --- !u!114 &280969415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3435,6 +3438,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 565943482}
+  inventoryManager: {fileID: 0}
 --- !u!114 &565943474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5790,6 +5794,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1073430461}
+  inventoryManager: {fileID: 0}
 --- !u!114 &1073430453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6181,9 +6186,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rotateAmount: 10
-  canPlace: 1
   inventoryManager: {fileID: 1494180280}
   activeCamera: {fileID: 1073430455}
+  placeSound: {fileID: 0}
+  rotateSound: {fileID: 0}
 --- !u!4 &1141967217
 Transform:
   m_ObjectHideFlags: 0
@@ -7957,6 +7963,7 @@ MonoBehaviour:
   - {fileID: 32652507}
   - {fileID: 1051669208}
   - {fileID: 1736564075}
+  inventoryMenu: {fileID: 0}
 --- !u!1 &1519517588
 GameObject:
   m_ObjectHideFlags: 0
@@ -8205,6 +8212,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1622867437}
+  inventoryManager: {fileID: 0}
 --- !u!114 &1622867432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8551,6 +8559,7 @@ MonoBehaviour:
   - {fileID: 153588352}
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1661441793}
+  inventoryManager: {fileID: 0}
 --- !u!114 &1661441785
 MonoBehaviour:
   m_ObjectHideFlags: 0

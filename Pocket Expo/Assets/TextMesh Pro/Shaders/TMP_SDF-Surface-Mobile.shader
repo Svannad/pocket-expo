@@ -63,7 +63,6 @@ SubShader {
 	#pragma target 3.0
 	#pragma shader_feature __ GLOW_ON
 
-	#include "TMPro_Properties.cginc"
 	#include "TMPro.cginc"
 
 	half _FaceShininess;
