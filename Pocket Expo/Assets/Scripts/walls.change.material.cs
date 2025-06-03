@@ -13,6 +13,8 @@ public class wallschange : MonoBehaviour
     private AudioSource audioSource;
 
     private bool materialsChanged = false;
+    public OnboardingManager onboardingManager;
+
 
     void Start()
     {
@@ -55,6 +57,9 @@ public class wallschange : MonoBehaviour
                 if (hit.transform == walls.transform)
                 {
                     ChangeMaterials(); // This now handles the sound too
+
+                    onboardingManager?.NotifyWallClicked();
+                    onboardingManager?.NotifyWallChanged();
                 }
             }
         }
@@ -84,6 +89,7 @@ public class wallschange : MonoBehaviour
                 PlaySound(); // Only play once when material is changed
 
                 materialsChanged = true;
+
             }
             else
             {

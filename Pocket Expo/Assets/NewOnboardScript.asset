@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3189deabd96b242e3b70e32ec3b07abf, type: 3}
   m_Name: NewOnboardScript
   m_EditorClassIdentifier: 
-  scriptLines: []
-  typingSpeed: 0.05
+  scriptLines:
+  - Hello, my dear. If you're reading this, then the museum is finally yours. I always
+    knew you'd turn it into something special.
+  - There are five rooms waiting for your creative touch. Press the number keys 1
+    - 5 to walk between them just like I used to. And if you ever want to take it
+    all in, press 0 to see the museum from above. It really helps to keep perspective.
+  typingSpeed: 0.02
   autoProgressLines: 
   autoProgressDelay: 1.5
-  typingSound: {fileID: 0}
+  typingSound: {fileID: 8300000, guid: dfd5ca76b7a3643159179098508905df, type: 3}

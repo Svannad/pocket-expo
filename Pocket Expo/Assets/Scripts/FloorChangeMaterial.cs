@@ -4,23 +4,22 @@ using UnityEngine.EventSystems;
 public class FloorChangeMaterial : MonoBehaviour
 {
     [Header("Floor Settings")]
-    public GameObject floor;  // Reference to the Floor GameObject
-    public Material floorNewMaterial;  // The new material for the floor
-    private Material floorOriginalMaterial;  // Store the original material of the floor
+    public GameObject floor;
+    public Material floorNewMaterial;
+    private Material floorOriginalMaterial;
 
     [Header("Audio Settings")]
-    public AudioClip soundEffect;  // The sound to play when the material changes
-    private AudioSource audioSource;  // AudioSource to play the sound
+    public AudioClip soundEffect;
+    private AudioSource audioSource;
 
-    private bool materialsChanged = false;  // Flag to ensure materials are only changed once
+    private bool materialsChanged = false;
+    public OnboardingManager onboardingManager;
 
     void Start()
     {
-        // Set up the audio source
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
-        // Store the original material of the floor
         if (floor != null)
         {
             Renderer floorRenderer = floor.GetComponent<Renderer>();
@@ -53,7 +52,11 @@ public class FloorChangeMaterial : MonoBehaviour
             {
                 if (hit.transform == floor.transform)
                 {
-                    ChangeMaterials(); // Now handles the sound as well
+                    ChangeMaterials();
+
+                    // ✅ Safe to call here
+                    onboardingManager?.NotifyFloorClicked();
+                    onboardingManager?.NotifyFloorChanged();
                 }
             }
             else
@@ -67,35 +70,19 @@ public class FloorChangeMaterial : MonoBehaviour
     {
         if (materialsChanged) return;
 
-        if (floorNewMaterial != null && floorOriginalMaterial != floorNewMaterial)
-        {
-            Debug.Log("Floor material needs to be changed.");
-        }
-        else
-        {
-            Debug.Log("Floor material does not need to be changed.");
-        }
-
-        if (floor != null)
+        if (floor != null && floorNewMaterial != null)
         {
             Renderer floorRenderer = floor.GetComponent<Renderer>();
-            if (floorRenderer != null && floorNewMaterial != null && floorOriginalMaterial != floorNewMaterial)
+            if (floorRenderer != null && floorOriginalMaterial != floorNewMaterial)
             {
                 floorRenderer.material = floorNewMaterial;
-                Debug.Log("Floor material changed successfully.");
-
-                // Only play sound once, at the same time as changing material
                 PlaySound();
-
                 materialsChanged = true;
-            }
-            else
-            {
-                Debug.LogWarning("Floor renderer or new material not found!");
+
+                Debug.Log("Floor material changed successfully.");
             }
         }
     }
-
 
     void PlaySound()
     {

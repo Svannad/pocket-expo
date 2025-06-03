@@ -18,6 +18,9 @@ public class BuildingManager : MonoBehaviour
     public AudioClip placeSound;
     public AudioClip rotateSound;
     private AudioSource audioSource;
+    public OnboardingManager onboardingManager;
+    private bool hasSelectedFirstItem = false;
+
 
     void Start()
     {
@@ -168,6 +171,13 @@ public class BuildingManager : MonoBehaviour
         {
             inventoryManager.CloseCurrentPage();
         }
+
+        if (!hasSelectedFirstItem && onboardingManager != null)
+        {
+            hasSelectedFirstItem = true;
+            onboardingManager.NotifyItemSelected();
+        }
+
     }
 
     public void RotateObject()
