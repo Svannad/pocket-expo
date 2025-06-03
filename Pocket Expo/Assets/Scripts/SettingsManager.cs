@@ -14,27 +14,20 @@ public class SettingsManager : MonoBehaviour
     private bool hasShownManual = false;
 
     void Start()
-    {
-        // Hide settings panel initially
-        settingsPanel.transform.localScale = Vector3.zero;
-        settingsPanel.SetActive(false);
+{
+    // Hide settings panel initially
+    settingsPanel.transform.localScale = Vector3.zero;
+    settingsPanel.SetActive(false);
 
-        // Show manual on first start with pop animation
-        if (!hasShownManual)
-        {
-            ShowManualWithPop();
-            hasShownManual = true;
-        }
-        else
-        {
-            gameManualPanel.SetActive(false);
-        }
+    // Always start with the manual hidden
+    gameManualPanel.SetActive(false);
 
-        // Hook up button events
-        settingsToggleButton.onClick.AddListener(ToggleSettingsPanel);
-        showManualButton.onClick.AddListener(ShowManualWithPop);
-        closeManualButton.onClick.AddListener(CloseManual);
-    }
+    // Hook up button events
+    settingsToggleButton.onClick.AddListener(ToggleSettingsPanel);
+    showManualButton.onClick.AddListener(ShowManualWithPop);
+    closeManualButton.onClick.AddListener(CloseManual);
+}
+
 
     void ToggleSettingsPanel()
     {
