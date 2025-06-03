@@ -11,8 +11,6 @@ public class SettingsManager : MonoBehaviour
     public Button showManualButton;
     public Button closeManualButton;
 
-    private bool hasShownManual = false;
-
     void Start()
 {
     // Hide settings panel initially
