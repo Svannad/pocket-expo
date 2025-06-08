@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal; // For DepthOfField in URP
+using UnityEngine.Rendering.Universal;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -20,6 +20,9 @@ public class CameraMovement : MonoBehaviour
     private float smoothPercentage;
     public InventoryManager inventoryManager;
     private int currentCameraIndex = 0;
+
+    // 👇 Public property to allow read-only access to currentCameraIndex
+    public int CurrentCameraIndex => currentCameraIndex;
 
     void Start()
     {
@@ -43,6 +46,7 @@ public class CameraMovement : MonoBehaviour
         {
             Debug.LogWarning("PostProcess Volume or Profile not assigned!");
         }
+
         if (transitionAudioSource == null)
         {
             Debug.LogWarning("AudioSource for transitions not assigned!");
@@ -51,36 +55,13 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            TransitionToSpot(cameraSpotAlignments[0]);
-            UpdateInventoryVisibility(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            TransitionToSpot(cameraSpotAlignments[1]);
-            UpdateInventoryVisibility(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            TransitionToSpot(cameraSpotAlignments[2]);
-            UpdateInventoryVisibility(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            TransitionToSpot(cameraSpotAlignments[3]);
-            UpdateInventoryVisibility(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            TransitionToSpot(cameraSpotAlignments[4]);
-            UpdateInventoryVisibility(4);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            TransitionToSpot(cameraSpotAlignments[5]);
-            UpdateInventoryVisibility(5);
-        }
+        if (Input.GetKeyDown(KeyCode.Alpha0)) { TransitionToSpot(cameraSpotAlignments[0]); UpdateInventoryVisibility(0); }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { TransitionToSpot(cameraSpotAlignments[1]); UpdateInventoryVisibility(1); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { TransitionToSpot(cameraSpotAlignments[2]); UpdateInventoryVisibility(2); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { TransitionToSpot(cameraSpotAlignments[3]); UpdateInventoryVisibility(3); }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) { TransitionToSpot(cameraSpotAlignments[4]); UpdateInventoryVisibility(4); }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) { TransitionToSpot(cameraSpotAlignments[5]); UpdateInventoryVisibility(5); }
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             if (blurEffect != null)
@@ -89,6 +70,7 @@ public class CameraMovement : MonoBehaviour
                 blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(smoothPercentage * Mathf.PI));
             }
         }
+
         if (isTransitioning)
         {
             currentLerpTime += Time.deltaTime;
@@ -109,25 +91,16 @@ public class CameraMovement : MonoBehaviour
             }
 
             if (percentComplete >= 1f)
-
             {
                 isTransitioning = false;
 
                 if (lookScript != null)
                 {
                     lookScript.SyncToCurrentTransformRotation();
-                    lookScript.enabled = true; // 👈 Re-enable after move
+                    lookScript.enabled = true;
                 }
-                // Reset blur effect after transition
-                if (blurEffect != null)
-                {
-                    blurEffect.active = false;
-                    blurEffect.gaussianMaxRadius.value = 0f;
-                }
-                else
 
-    // Always ensure blur is off outside transitions
-    if (blurEffect != null && blurEffect.active)
+                if (blurEffect != null)
                 {
                     blurEffect.active = false;
                     blurEffect.gaussianMaxRadius.value = 0f;
@@ -141,6 +114,7 @@ public class CameraMovement : MonoBehaviour
             }
         }
     }
+
     public void TransitionToSpot(CameraSpotAlignment spotAlignment)
     {
         startPosition = transform.position;
@@ -151,19 +125,19 @@ public class CameraMovement : MonoBehaviour
         isTransitioning = true;
 
         if (lookScript != null)
-            lookScript.enabled = false; // Disable look script during transition
+            lookScript.enabled = false;
 
         if (transitionAudioSource != null && transitionAudioSource.clip != null)
         {
             transitionAudioSource.Play();
         }
     }
+
     void UpdateInventoryVisibility(int cameraIndex)
     {
         currentCameraIndex = cameraIndex;
         if (inventoryManager != null)
         {
-            // Show inventory only on positions 1-5, hide on 0
             bool shouldShow = cameraIndex >= 1 && cameraIndex <= 5;
             inventoryManager.SetInventoryVisibility(shouldShow);
         }
