@@ -6,15 +6,16 @@ public class TopDownUIController : MonoBehaviour
     public GameObject roomButtonsUI;
     public CanvasGroup canvasGroup;
     public CameraMovement cameraMovement;
-    public float fadeDuration = 0.15f;
-    public float bounceScale = 1.1f;
+    public float fadeInDuration = 0.12f;
 
-    private Coroutine fadeCoroutine;
+    private Coroutine transitionCoroutine;
     private RectTransform rectTransform;
 
     void Start()
     {
         rectTransform = roomButtonsUI.GetComponent<RectTransform>();
+        canvasGroup.alpha = 0;
+        rectTransform.localScale = Vector3.zero;
         RefreshVisibility();
     }
 
@@ -27,11 +28,16 @@ public class TopDownUIController : MonoBehaviour
         }
 
         bool shouldBeVisible = cameraMovement.HasReachedSpot();
-        Debug.Log("[TopDownUI] Camera at top-down position: " + shouldBeVisible);
 
-        // Always keep the object active; only control visibility through alpha and scale
-        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
-        fadeCoroutine = StartCoroutine(FadeWithBounce(shouldBeVisible));
+        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+        if (shouldBeVisible)
+        {
+            transitionCoroutine = StartCoroutine(FadeIn());
+        }
+        else
+        {
+            FadeOutInstant();
+        }
     }
 
     public void ForceShowButtons()
@@ -39,48 +45,44 @@ public class TopDownUIController : MonoBehaviour
         RefreshVisibility();
     }
 
-    private IEnumerator FadeWithBounce(bool visible)
+    private IEnumerator FadeIn()
     {
-        float startAlpha = canvasGroup.alpha;
-        float endAlpha = visible ? 1f : 0f;
         float timer = 0f;
-
+        float startAlpha = canvasGroup.alpha;
         Vector3 startScale = rectTransform.localScale;
-        Vector3 targetScale = visible ? Vector3.one * bounceScale : Vector3.zero;
 
-        if (visible)
-        {
-            canvasGroup.blocksRaycasts = true;
-            canvasGroup.interactable = true;
-        }
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
 
-        while (timer < fadeDuration)
+        while (timer < fadeInDuration)
         {
             timer += Time.deltaTime;
-            float t = timer / fadeDuration;
-            float easedT = EaseOutBack(t);
+            float t = timer / fadeInDuration;
+            float eased = EaseInOut(t);
 
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
-            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, easedT);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 1f, t);
+            rectTransform.localScale = Vector3.Lerp(startScale, Vector3.one, eased);
+
             yield return null;
         }
 
-        canvasGroup.alpha = endAlpha;
-        rectTransform.localScale = visible ? Vector3.one : Vector3.zero;
-
-        if (!visible)
-        {
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.interactable = false;
-        }
+        canvasGroup.alpha = 1f;
+        rectTransform.localScale = Vector3.one;
     }
 
-    // Simple bounce easing
-    private float EaseOutBack(float t)
+    private void FadeOutInstant()
     {
-        float c1 = 1.70158f;
-        float c3 = c1 + 1;
-        return 1 + c3 * Mathf.Pow(t - 1, 3) + c1 * Mathf.Pow(t - 1, 2);
+        canvasGroup.alpha = 0f;
+        rectTransform.localScale = Vector3.zero;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+    }
+
+    private float EaseInOut(float t)
+    {
+        return t < 0.5f
+            ? 2f * t * t
+            : -1f + (4f - 2f * t) * t;
     }
 }
 

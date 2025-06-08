@@ -10625,8 +10625,7 @@ MonoBehaviour:
   roomButtonsUI: {fileID: 1798997401}
   canvasGroup: {fileID: 1798997405}
   cameraMovement: {fileID: 1073430452}
-  fadeDuration: 0.2
-  bounceScale: 1.1
+  fadeInDuration: 0.2
 --- !u!114 &1798997404
 MonoBehaviour:
   m_ObjectHideFlags: 0
