@@ -640,6 +640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &153588353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +664,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 153588359}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &153588354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,6 +1540,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 256676375}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &256676367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &256676370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984,6 +1992,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &280969413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,6 +2031,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 280969420}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &280969415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,6 +2265,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &307516285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 307516286}
+  m_Layer: 0
+  m_Name: TopDownReference
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &307516286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307516285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.49890804, y: -0.50108963, z: 0.50108963, w: 0.49890804}
+  m_LocalPosition: {x: -23.4, y: 0, z: -25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -270, y: 360, z: 90.25}
 --- !u!1 &308984063
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,6 +3545,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 565943482}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &565943474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3633,6 +3678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &565943480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6457,6 +6504,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1073430461}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 1798997403}
+  topDownReference: {fileID: 307516286}
 --- !u!114 &1073430453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6588,6 +6637,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1073430458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9467,6 +9518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1622867431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9489,6 +9542,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1622867437}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &1622867432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9850,6 +9905,8 @@ MonoBehaviour:
   GlobalVolume: {fileID: 172125631}
   transitionAudioSource: {fileID: 1661441793}
   inventoryManager: {fileID: 1494180280}
+  topDownUIController: {fileID: 0}
+  topDownReference: {fileID: 0}
 --- !u!114 &1661441785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9981,6 +10038,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfView: 90
+  staticPosition: {x: 0, y: 0, z: 0}
+  staticRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1661441791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10564,8 +10623,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomButtonsUI: {fileID: 1798997401}
   cameraMovement: {fileID: 1073430452}
-  cameraTransform: {fileID: 280969418}
-  angleThreshold: 30
 --- !u!114 &1798997404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12724,3 +12781,4 @@ SceneRoots:
   - {fileID: 2000781511}
   - {fileID: 1169808024}
   - {fileID: 1269854524}
+  - {fileID: 307516286}

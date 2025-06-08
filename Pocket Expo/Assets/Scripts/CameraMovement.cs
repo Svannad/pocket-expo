@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
     public AudioSource transitionAudioSource;
     public InventoryManager inventoryManager;
     public TopDownUIController topDownUIController;
+    public Transform topDownReference; // 👈 NEW
 
     private DepthOfField blurEffect;
     private Camera mainCamera;
@@ -36,14 +37,6 @@ public class CameraMovement : MonoBehaviour
                 blurEffect.active = false;
                 blurEffect.gaussianMaxRadius.value = 0f;
             }
-            else
-            {
-                Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PostProcess Volume or Profile not assigned!");
         }
 
         if (transitionAudioSource == null)
@@ -151,14 +144,14 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    // ✅ Compares position/rotation with fixed TopDownReference
     public bool HasReachedSpot()
     {
-        if (isTransitioning || currentCameraIndex != 0)
+        if (isTransitioning || currentCameraIndex != 0 || topDownReference == null)
             return false;
 
-        var refSpot = cameraSpotAlignments[0];
-        float dist = Vector3.Distance(transform.position, refSpot.staticPosition);
-        float angle = Quaternion.Angle(transform.rotation, refSpot.staticRotation);
+        float dist = Vector3.Distance(transform.position, topDownReference.position);
+        float angle = Quaternion.Angle(transform.rotation, topDownReference.rotation);
 
         return dist < 0.1f && angle < 1f;
     }

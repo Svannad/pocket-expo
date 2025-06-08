@@ -7,7 +7,7 @@ public class TopDownUIController : MonoBehaviour
 
     void Start()
     {
-        RefreshVisibility(); // Ensure UI is correct at scene start
+        RefreshVisibility();
     }
 
     public void RefreshVisibility()
@@ -29,5 +29,6 @@ public class TopDownUIController : MonoBehaviour
         RefreshVisibility();
     }
 }
+
 
 
