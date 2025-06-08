@@ -7,6 +7,9 @@ public class CameraMovement : MonoBehaviour
     public CameraSpotAlignment[] cameraSpotAlignments;
     public Volume GlobalVolume;
     public AudioSource transitionAudioSource;
+    public InventoryManager inventoryManager;
+    public TopDownUIController topDownUIController;
+
     private DepthOfField blurEffect;
     private Camera mainCamera;
     private float currentLerpTime = 0f;
@@ -17,11 +20,8 @@ public class CameraMovement : MonoBehaviour
     private bool isTransitioning = false;
     private Quaternion startRotation;
     private StationaryLookAround lookScript;
-    private float smoothPercentage;
-    public InventoryManager inventoryManager;
     private int currentCameraIndex = 0;
 
-    // 👇 Public property to allow read-only access to currentCameraIndex
     public int CurrentCameraIndex => currentCameraIndex;
 
     void Start()
@@ -31,15 +31,14 @@ public class CameraMovement : MonoBehaviour
 
         if (GlobalVolume != null && GlobalVolume.profile != null)
         {
-            bool gotEffect = GlobalVolume.profile.TryGet(out blurEffect);
-            if (!gotEffect)
-            {
-                Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
-            }
-            else
+            if (GlobalVolume.profile.TryGet(out blurEffect))
             {
                 blurEffect.active = false;
                 blurEffect.gaussianMaxRadius.value = 0f;
+            }
+            else
+            {
+                Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
             }
         }
         else
@@ -55,7 +54,16 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0)) { TransitionToSpot(cameraSpotAlignments[0]); UpdateInventoryVisibility(0); }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            TransitionToSpot(cameraSpotAlignments[0]);
+            UpdateInventoryVisibility(0);
+
+            if (topDownUIController != null)
+            {
+                topDownUIController.ForceShowButtons();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1)) { TransitionToSpot(cameraSpotAlignments[1]); UpdateInventoryVisibility(1); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { TransitionToSpot(cameraSpotAlignments[2]); UpdateInventoryVisibility(2); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { TransitionToSpot(cameraSpotAlignments[3]); UpdateInventoryVisibility(3); }
@@ -67,7 +75,7 @@ public class CameraMovement : MonoBehaviour
             if (blurEffect != null)
             {
                 blurEffect.active = true;
-                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(smoothPercentage * Mathf.PI));
+                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(currentLerpTime / lerpDuration * Mathf.PI));
             }
         }
 
@@ -105,11 +113,10 @@ public class CameraMovement : MonoBehaviour
                     blurEffect.active = false;
                     blurEffect.gaussianMaxRadius.value = 0f;
                 }
-                else
+
+                if (topDownUIController != null)
                 {
-                    transform.position = targetSpot.position;
-                    mainCamera.fieldOfView = targetSpot.fieldOfView;
-                    transform.rotation = targetSpot.rotation;
+                    topDownUIController.RefreshVisibility();
                 }
             }
         }
@@ -142,4 +149,18 @@ public class CameraMovement : MonoBehaviour
             inventoryManager.SetInventoryVisibility(shouldShow);
         }
     }
+
+    // ✅ Uses static position snapshot from CameraSpotAlignment[0]
+    public bool HasReachedSpot()
+    {
+        if (isTransitioning || currentCameraIndex != 0)
+            return false;
+
+        var refSpot = cameraSpotAlignments[0];
+        float dist = Vector3.Distance(transform.position, refSpot.staticPosition);
+        float angle = Quaternion.Angle(transform.rotation, refSpot.staticRotation);
+
+        return dist < 0.1f && angle < 1f;
+    }
 }
+

@@ -1,25 +1,34 @@
 using UnityEngine;
 
 public class CameraSpotAlignment : MonoBehaviour
-
 {
     public float fieldOfView;
 
     private CameraSpot cameraSpot;
 
-    void Awake() {
-        cameraSpot = new CameraSpot() {
-            position = transform.position,
-            rotation = transform.rotation,
+    // 👇 These hold the initial snapshot at Awake time
+    [HideInInspector] public Vector3 staticPosition;
+    [HideInInspector] public Quaternion staticRotation;
+
+    void Awake()
+    {
+        // Save transform at startup
+        staticPosition = transform.position;
+        staticRotation = transform.rotation;
+
+        cameraSpot = new CameraSpot()
+        {
+            position = staticPosition,
+            rotation = staticRotation,
             fieldOfView = fieldOfView
         };
     }
 
-    public CameraSpot GetCameraSpot() {
+    public CameraSpot GetCameraSpot()
+    {
         return cameraSpot;
     }
 }
-
 
 [System.Serializable]
 public class CameraSpot
