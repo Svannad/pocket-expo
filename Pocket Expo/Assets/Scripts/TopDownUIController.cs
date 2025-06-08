@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class TopDownUIController : MonoBehaviour
 {
-    public GameObject roomButtonsUI; // Assign RoomButtonsUI in Inspector
-    public CameraMovement cameraMovement; // Assign the Camera0 script here
+    public GameObject roomButtonsUI;
+    public CameraMovement cameraMovement;
+    public Transform cameraTransform; // Assign Camera0’s Transform
+    public float angleThreshold = 30f; // How "top-down" the view must be
 
     void Update()
     {
-        // Show only when in top-down camera (index 0)
-        roomButtonsUI.SetActive(cameraMovement.CurrentCameraIndex == 0);
+        bool isTopCamera = cameraMovement.CurrentCameraIndex == 0;
+        bool isLookingDown = Vector3.Angle(cameraTransform.forward, Vector3.down) <= angleThreshold;
+
+        roomButtonsUI.SetActive(isTopCamera && isLookingDown);
     }
 }
 
