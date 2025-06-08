@@ -116,6 +116,7 @@ public class CameraMovement : MonoBehaviour
 
                 if (topDownUIController != null)
                 {
+                    Debug.Log("[CameraMovement] Transition complete. Refreshing UI.");
                     topDownUIController.RefreshVisibility();
                 }
             }
@@ -150,7 +151,6 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    // ✅ Uses static position snapshot from CameraSpotAlignment[0]
     public bool HasReachedSpot()
     {
         if (isTransitioning || currentCameraIndex != 0)
@@ -163,4 +163,5 @@ public class CameraMovement : MonoBehaviour
         return dist < 0.1f && angle < 1f;
     }
 }
+
 
