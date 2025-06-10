@@ -7131,6 +7131,7 @@ MonoBehaviour:
   activeCamera: {fileID: 1073430455}
   placeSound: {fileID: 8300000, guid: 715816845e2db4744a2e8e666302f931, type: 3}
   rotateSound: {fileID: 8300000, guid: 79124effd0cd98d48b96a2a369c74ae4, type: 3}
+  onboardingManager: {fileID: 532113008}
 --- !u!4 &1141967217
 Transform:
   m_ObjectHideFlags: 0
@@ -9995,6 +9996,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2506724670844885805, guid: f89de8b37337d8c4fa96723cd9100fd9, type: 3}
+      propertyPath: onboardingManager
+      value: 
+      objectReference: {fileID: 532113008}
     - target: {fileID: 2955266833211980978, guid: f89de8b37337d8c4fa96723cd9100fd9, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -10047,6 +10052,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4209765864932958619, guid: f89de8b37337d8c4fa96723cd9100fd9, type: 3}
+      propertyPath: onboardingManager
+      value: 
+      objectReference: {fileID: 532113008}
     - target: {fileID: 6289367508857524236, guid: f89de8b37337d8c4fa96723cd9100fd9, type: 3}
       propertyPath: m_Name
       value: gallery transformation
