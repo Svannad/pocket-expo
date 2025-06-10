@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal; // For DepthOfField in URP
+using UnityEngine.Rendering.Universal;
 
 public class CameraMovement : MonoBehaviour
 {
     public CameraSpotAlignment[] cameraSpotAlignments;
     public Volume GlobalVolume;
     public AudioSource transitionAudioSource;
+    public InventoryManager inventoryManager;
+    public TopDownUIController topDownUIController;
+    public Transform topDownReference; // 👈 NEW
+
     private DepthOfField blurEffect;
     private Camera mainCamera;
     private float currentLerpTime = 0f;
@@ -17,9 +21,9 @@ public class CameraMovement : MonoBehaviour
     private bool isTransitioning = false;
     private Quaternion startRotation;
     private StationaryLookAround lookScript;
-    private float smoothPercentage;
-    public InventoryManager inventoryManager;
     private int currentCameraIndex = 0;
+
+    public int CurrentCameraIndex => currentCameraIndex;
 
     void Start()
     {
@@ -28,21 +32,13 @@ public class CameraMovement : MonoBehaviour
 
         if (GlobalVolume != null && GlobalVolume.profile != null)
         {
-            bool gotEffect = GlobalVolume.profile.TryGet(out blurEffect);
-            if (!gotEffect)
-            {
-                Debug.LogWarning("DepthOfField override not found in the PostProcess Volume profile!");
-            }
-            else
+            if (GlobalVolume.profile.TryGet(out blurEffect))
             {
                 blurEffect.active = false;
                 blurEffect.gaussianMaxRadius.value = 0f;
             }
         }
-        else
-        {
-            Debug.LogWarning("PostProcess Volume or Profile not assigned!");
-        }
+
         if (transitionAudioSource == null)
         {
             Debug.LogWarning("AudioSource for transitions not assigned!");
@@ -55,40 +51,27 @@ public class CameraMovement : MonoBehaviour
         {
             TransitionToSpot(cameraSpotAlignments[0]);
             UpdateInventoryVisibility(0);
+
+            if (topDownUIController != null)
+            {
+                topDownUIController.ForceShowButtons();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            TransitionToSpot(cameraSpotAlignments[1]);
-            UpdateInventoryVisibility(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            TransitionToSpot(cameraSpotAlignments[2]);
-            UpdateInventoryVisibility(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            TransitionToSpot(cameraSpotAlignments[3]);
-            UpdateInventoryVisibility(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            TransitionToSpot(cameraSpotAlignments[4]);
-            UpdateInventoryVisibility(4);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            TransitionToSpot(cameraSpotAlignments[5]);
-            UpdateInventoryVisibility(5);
-        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { TransitionToSpot(cameraSpotAlignments[1]); UpdateInventoryVisibility(1); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { TransitionToSpot(cameraSpotAlignments[2]); UpdateInventoryVisibility(2); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { TransitionToSpot(cameraSpotAlignments[3]); UpdateInventoryVisibility(3); }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) { TransitionToSpot(cameraSpotAlignments[4]); UpdateInventoryVisibility(4); }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) { TransitionToSpot(cameraSpotAlignments[5]); UpdateInventoryVisibility(5); }
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             if (blurEffect != null)
             {
                 blurEffect.active = true;
-                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(smoothPercentage * Mathf.PI));
+                blurEffect.gaussianMaxRadius.value = Mathf.Lerp(0f, 10f, Mathf.Sin(currentLerpTime / lerpDuration * Mathf.PI));
             }
         }
+
         if (isTransitioning)
         {
             currentLerpTime += Time.deltaTime;
@@ -109,38 +92,30 @@ public class CameraMovement : MonoBehaviour
             }
 
             if (percentComplete >= 1f)
-
             {
                 isTransitioning = false;
 
                 if (lookScript != null)
                 {
                     lookScript.SyncToCurrentTransformRotation();
-                    lookScript.enabled = true; // 👈 Re-enable after move
+                    lookScript.enabled = true;
                 }
-                // Reset blur effect after transition
+
                 if (blurEffect != null)
                 {
                     blurEffect.active = false;
                     blurEffect.gaussianMaxRadius.value = 0f;
                 }
-                else
 
-    // Always ensure blur is off outside transitions
-    if (blurEffect != null && blurEffect.active)
+                if (topDownUIController != null)
                 {
-                    blurEffect.active = false;
-                    blurEffect.gaussianMaxRadius.value = 0f;
-                }
-                else
-                {
-                    transform.position = targetSpot.position;
-                    mainCamera.fieldOfView = targetSpot.fieldOfView;
-                    transform.rotation = targetSpot.rotation;
+                    Debug.Log("[CameraMovement] Transition complete. Refreshing UI.");
+                    topDownUIController.RefreshVisibility();
                 }
             }
         }
     }
+
     public void TransitionToSpot(CameraSpotAlignment spotAlignment)
     {
         startPosition = transform.position;
@@ -151,21 +126,35 @@ public class CameraMovement : MonoBehaviour
         isTransitioning = true;
 
         if (lookScript != null)
-            lookScript.enabled = false; // Disable look script during transition
+            lookScript.enabled = false;
 
         if (transitionAudioSource != null && transitionAudioSource.clip != null)
         {
             transitionAudioSource.Play();
         }
     }
+
     void UpdateInventoryVisibility(int cameraIndex)
     {
         currentCameraIndex = cameraIndex;
         if (inventoryManager != null)
         {
-            // Show inventory only on positions 1-5, hide on 0
             bool shouldShow = cameraIndex >= 1 && cameraIndex <= 5;
             inventoryManager.SetInventoryVisibility(shouldShow);
         }
     }
+
+    // ✅ Compares position/rotation with fixed TopDownReference
+    public bool HasReachedSpot()
+    {
+        if (isTransitioning || currentCameraIndex != 0 || topDownReference == null)
+            return false;
+
+        float dist = Vector3.Distance(transform.position, topDownReference.position);
+        float angle = Quaternion.Angle(transform.rotation, topDownReference.rotation);
+
+        return dist < 0.1f && angle < 1f;
+    }
 }
+
+
